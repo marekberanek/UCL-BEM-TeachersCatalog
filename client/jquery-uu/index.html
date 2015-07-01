@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Example Page</title>
+	<link href="jquery-ui.css" rel="stylesheet">
+	<style>
+	body{
+		font: 14px Clear Sans, sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+	</style>
+</head>
+<body>
+
+<h1>Welcome to jQuery UI UU!</h1>
+
+<div class="ui-widget">
+	<p>This page demonstrates the widgets and theme. Please make sure you are using them with a compatible jQuery version.</p>
+</div>
+
+<h1>YOUR COMPONENTS:</h1>
+
+
+<!-- Accordion -->
+<h2 class="demoHeaders"><a href="http://api.jqueryui.com/accordion/" target="_blank">Accordion</a></h2>
+<div id="accordion">
+	<h3>First</h3>
+	<div>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>
+	<h3>Second</h3>
+	<div>Phasellus mattis tincidunt nibh.</div>
+	<h3>Third</h3>
+	<div>Nam dui erat, auctor a, dignissim quis.</div>
+</div>
+
+
+
+<!-- Autocomplete -->
+<h2 class="demoHeaders"><a href="http://api.jqueryui.com/autocomplete/" target="_blank">Autocomplete</a></h2>
+<div>
+	<input id="autocomplete" title="type &quot;a&quot;">
+</div>
+
+
+
+<!-- Button -->
+<h2 class="demoHeaders"><a href="http://api.jqueryui.com/button/" target="_blank">Button</a></h2>
+<p>
+  <pre>
+&lt;button id=&quot;button&quot;&gt;A button element&lt;/button&gt;<br/>&lt;script&gt;<br/>  $( &quot;#button&quot; ).button();<br/>&lt;/script&gt;
+  </pre>
+</p>
+<button id="button">A button element</button>
+<br/><br/><br/>
+<p>
+  <pre>
+&lt;form&gt;<br/>  &lt;div id=&quot;radioset&quot;&gt;<br/>    &lt;input type=&quot;radio&quot; id=&quot;radio1&quot; name=&quot;radio&quot;&gt;&lt;label for=&quot;radio1&quot;&gt;Choice 1&lt;/label&gt;<br/>    &lt;input type=&quot;radio&quot; id=&quot;radio2&quot; name=&quot;radio&quot; checked=&quot;checked&quot;&gt;&lt;label for=&quot;radio2&quot;&gt;Choice 2&lt;/label&gt;<br/>    &lt;input type=&quot;radio&quot; id=&quot;radio3&quot; name=&quot;radio&quot;&gt;&lt;label for=&quot;radio3&quot;&gt;Choice 3&lt;/label&gt;<br/>  &lt;/div&gt;<br/>&lt;/form&gt;<br/>&lt;script&gt;<br/>  $( &quot;#radioset&quot; ).buttonset();<br/>&lt;/script&gt;
+  </pre>
+</p>
+<form style="margin-top: 1em;">
+	<div id="radioset">
+		<input type="radio" id="radio1" name="radio"><label for="radio1">Choice 1</label>
+		<input type="radio" id="radio2" name="radio" checked="checked"><label for="radio2">Choice 2</label>
+		<input type="radio" id="radio3" name="radio"><label for="radio3">Choice 3</label>
+	</div>
+</form>
+
+
+
+<!-- Tabs -->
+<h2 class="demoHeaders"><a href="http://api.jqueryui.com/tabs/" target="_blank">Tabs</a></h2>
+<p>
+  <pre>
+&lt;div id=&quot;tabs&quot;&gt;<br/>  &lt;ul&gt;<br/>    &lt;li&gt;&lt;a href=&quot;#tabs-1&quot;&gt;First&lt;/a&gt;&lt;/li&gt;<br/>    &lt;li&gt;&lt;a href=&quot;#tabs-2&quot;&gt;Second&lt;/a&gt;&lt;/li&gt;<br/>    &lt;li&gt;&lt;a href=&quot;#tabs-3&quot;&gt;Third&lt;/a&gt;&lt;/li&gt;<br/>  &lt;/ul&gt;<br/>  &lt;div id=&quot;tabs-1&quot;&gt;Lorem ipsum ...&lt;/div&gt;<br/>  &lt;div id=&quot;tabs-2&quot;&gt;Phasellus mattis ...&lt;/div&gt;<br/>  &lt;div id=&quot;tabs-3&quot;&gt;Nam dui erat, ...&lt;/div&gt;<br/>&lt;/div&gt;<br/>&lt;script&gt;<br/>  $( &quot;#tabs&quot; ).tabs();<br/>&lt;/script&gt;
+  </pre>
+</p>
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">First</a></li>
+		<li><a href="#tabs-2">Second</a></li>
+		<li><a href="#tabs-3">Third</a></li>
+	</ul>
+	<div id="tabs-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+	<div id="tabs-2">Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.</div>
+	<div id="tabs-3">Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
+</div>
+<br/>
+<h3>Some <a href="http://raphaeljs.com" target="_blank">Raphael</a> example</h3>
+<div id="tabs-raphael">
+	<ul>
+		<li><a href="#tabs-raphael-1">First</a></li>
+		<li><a href="#tabs-raphael-2">Second</a></li>
+	</ul>
+	<div id="tabs-raphael-1">
+    <pre>
+var paper = Raphael( "tabs-raphael-1", 800, 200 );
+
+paper.rect( 40, 40, 50, 50, 5 );
+
+paper.path( 'M200,10C123,16,90,36,190,50C290,63,23,183,200,190' )
+     .attr( { stroke: "#2a1", "stroke-width":"2" } );
+
+paper.circle( 340, 90, 50 ).attr( { fill: "#bf2f2f", stroke: "#212121", "stroke-width":"2" } );
+    </pre>
+  </div>
+	<div id="tabs-raphael-2"><h3>Draggable SVG images</h3>
+    <pre>
+var paper = Raphael( "tabs-raphael-2", 800, 200 );
+
+var svgImages = [
+  'images/daily-calendar2.svg',
+  'images/done2.svg',
+  'images/magnifyingglass.svg',
+  'images/mail3.svg',
+  'images/operations.svg'
+];
+
+var start = function() {
+  this.ox = this.attr("x");
+  this.oy = this.attr("y");
+  this.animate({width: 48, height: 48}, 100, ">");
+};
+var move = function(dx, dy) {
+  this.attr( {x: this.ox + dx, y: this.oy + dy} );
+};
+var up = function() {
+  this.animate( {width: 32, height: 32}, 100, ">");
+};
+
+svgImages.forEach( function( svgImage, index ) {
+  var imgEl = paper.image( svgImage, 40 + index * 64, 40, 32, 32 );
+  imgEl.attr( 'cursor', 'move' );
+  imgEl.drag( move, start, up );
+});
+    </pre>
+  </div>
+</div>
+
+
+
+<!-- Dialog NOTE: Dialog is not generated by UI in this demo so it can be visually styled in themeroller-->
+<h2 class="demoHeaders"><a href="http://api.jqueryui.com/dialog/" target="_blank">Dialog</a></h2>
+<p><a href="#" id="dialog-link" class="ui-button ui-state-default ui-corner-all"><span class="ui-icon ui-icon-newwin"></span>Open Dialog</a></p>
+
+<h2 class="demoHeaders">Overlay and Shadow Classes <em>(not currently used in UI widgets)</em></h2>
+<div style="position: relative; width: 96%; height: 200px; padding:1% 2%; overflow:hidden;" class="fakewindowcontain">
+	<p>Lorem ipsum dolor sit amet,  Nulla nec tortor. Donec id elit quis purus consectetur consequat. </p><p>Nam congue semper tellus. Sed erat dolor, dapibus sit amet, venenatis ornare, ultrices ut, nisi. Aliquam ante. Suspendisse scelerisque dui nec velit. Duis augue augue, gravida euismod, vulputate ac, facilisis id, sem. Morbi in orci. </p><p>Nulla purus lacus, pulvinar vel, malesuada ac, mattis nec, quam. Nam molestie scelerisque quam. Nullam feugiat cursus lacus.orem ipsum dolor sit amet, consectetur adipiscing elit. Donec libero risus, commodo vitae, pharetra mollis, posuere eu, pede. Nulla nec tortor. Donec id elit quis purus consectetur consequat. </p><p>Nam congue semper tellus. Sed erat dolor, dapibus sit amet, venenatis ornare, ultrices ut, nisi. Aliquam ante. Suspendisse scelerisque dui nec velit. Duis augue augue, gravida euismod, vulputate ac, facilisis id, sem. Morbi in orci. Nulla purus lacus, pulvinar vel, malesuada ac, mattis nec, quam. Nam molestie scelerisque quam. </p><p>Nullam feugiat cursus lacus.orem ipsum dolor sit amet, consectetur adipiscing elit. Donec libero risus, commodo vitae, pharetra mollis, posuere eu, pede. Nulla nec tortor. Donec id elit quis purus consectetur consequat. Nam congue semper tellus. Sed erat dolor, dapibus sit amet, venenatis ornare, ultrices ut, nisi. Aliquam ante. </p><p>Suspendisse scelerisque dui nec velit. Duis augue augue, gravida euismod, vulputate ac, facilisis id, sem. Morbi in orci. Nulla purus lacus, pulvinar vel, malesuada ac, mattis nec, quam. Nam molestie scelerisque quam. Nullam feugiat cursus lacus.orem ipsum dolor sit amet, consectetur adipiscing elit. Donec libero risus, commodo vitae, pharetra mollis, posuere eu, pede. Nulla nec tortor. Donec id elit quis purus consectetur consequat. Nam congue semper tellus. Sed erat dolor, dapibus sit amet, venenatis ornare, ultrices ut, nisi. </p>
+
+	<!-- ui-dialog -->
+	<div class="ui-overlay"><div class="ui-widget-overlay"></div><div class="ui-widget-shadow ui-corner-all" style="width: 302px; height: 152px; position: absolute; left: 50px; top: 30px;"></div></div>
+	<div style="position: absolute; width: 280px; height: 130px;left: 50px; top: 30px; padding: 10px;" class="ui-widget ui-widget-content ui-corner-all">
+		<div class="ui-dialog-content ui-widget-content" style="background: none; border: 0;">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+		</div>
+	</div>
+
+</div>
+
+<!-- ui-dialog -->
+<div id="dialog" title="Dialog Title">
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+
+
+
+<h2 class="demoHeaders">Icons</h2>
+<ul id="icons" class="ui-widget ui-helper-clearfix">
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_payment-card"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_datasheet"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_person"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_examterm"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_payment_copy"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_revenue"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_request_for_proposal"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_bike_helmet"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-417-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_partner1-woman"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_unicorn-es-approach"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_receipt"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_senior-woman"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_strategic-surp"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_state"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_notepad"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_audit"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-S0A_C08"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_junior-man"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_landrover"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_officer-senior-woman"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-413-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_ter"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_descr-artifact"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-S0A_C03"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_visual_component"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_key"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-410-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_tractor"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_org-scheme"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_coins"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_portal"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_money"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_non_visual_comp"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_supplier2"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_test"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_component"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_state"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_competitor1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_dog"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_sales_wave"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_script"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-474-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_a4"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_hr-request"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_car"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_login"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_company-repr"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_diamond"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_company-card"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_activity-condition"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_action-e_decide"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-427-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_expert-man"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_employee-assessment-1-man"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_compass"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-484-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_mp3_player"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_horse"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_client2"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_client1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_team"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_photo"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-450-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_audio"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_tv_set"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_axiom"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_product"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_situation-analysis"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_officer-expert-man"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-488-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_reference"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-485-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_course"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-445-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_specialization2"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_armchair"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_minutes"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_breakdown-pies"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_bank"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_first_aid_kit"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_supplier1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_school_subject"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_strategy"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_ter-business"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_competitor1-woman"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_unicorn-es-pc"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_identity-company"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-469-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_semester"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_client1-woman"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-444-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_firewall"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_sofa"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_uc-controller"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-412-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_db_server"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_unicorn-universe"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-S0A_C01"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-416-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_unicorn-es"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_key-task"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_woman"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_officer-junior-man"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_prj-risk-list"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_bank-transfer"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_company-approach"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_tax"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_target"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_partner1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_machine"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_bqo"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_microphone"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-list"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-432-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_app_server"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_commission"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_roles-map"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_folder"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_identity"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-487-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_role"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_euro"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_digital-workspace-man"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_campaign"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_ok"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_payment-order"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_supplier1-woman"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_seminar"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_ou"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_actor"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_mmd"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_roll_skates"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_lock"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_directory_tree"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_career"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_gps"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_assessment-status"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_business_opportunity"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_snowmobile"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_press-release"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_sponzoring"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_junior-woman"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-414-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_business_case"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_airplane"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_question"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_salary"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_group"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_competitor2"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_billboard"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_truck_loaded"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_cd"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_shopping_cart"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_video"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-460-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_application-card"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_vacation"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_officer-senior-man"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_knowledge-profile2-w"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-426-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_officer-expert-woman"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_teacher"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-457-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_action-c_message"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-S0A_C05"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_exam"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_model"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_chair"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-446-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_advertisment"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_office"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_hammer"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_managing_stream"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_think"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_personal-card"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_bus"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_bank-account"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_discount"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_budget"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_ter-my"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_table"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_employee-pool"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_use_case_model"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_book"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_invoice"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_timetable"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-439-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-clubs"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_man"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_notebook"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_snowcat"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_bro"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_plan"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_cow"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-S0A_C04"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_info"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_vision"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-428-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-436-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_atm"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_bdo"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_prj-environment"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_activity_template"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-424-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_mri_mar"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_system"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_subject"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_file"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_logoprint"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_employee-unit"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_headphones"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_clock"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_system_activity-e"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_truck"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-418-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_email"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-475-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_idea"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_senior-man"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_uml_component"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-459-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_stock"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-list"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_rope"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_officer-junior-woman"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_mfi-mar"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_magazine"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_mar"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_house"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-429-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_watercraft"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_identity-personal"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_action-e"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_action-e_perform"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_plan-2"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_role-access"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_database"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_research"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_mobile_phone"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_swimming_pool"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_unicorn-college"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_know-how-element2"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_int-selection-procedure"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_contract"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_press-conference"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_newspaper"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_book-keeper"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_sheep"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-425-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-S0A_C07"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_thermometer"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_exclamation"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-S0A_C06"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_web"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_action-c_task"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_knowhow"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-449-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_building"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_action-c_milestone"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_bank-loan"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_use_case"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_smithery"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_user"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_personal-role-folder"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_data_structure"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_cv2"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_rat"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_company-profile"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_cash-flow"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_personal-role-artefakt"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_mouse"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_evaluation2"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_ps-portfolio"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_artifact"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_action-e_time-res"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_action-e_reply"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_dollar"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-411-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_report"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_employee-assessment-2-man"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_activity-action-2"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_small-motor-boat"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_sailboat"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_gold"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_benefit"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_thesis"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_movie"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_action-c_meeting"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_phone"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_bad"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_expert-woman"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-438-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_expansion_and_develop"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_problem-res"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_graduateship"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_rq"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_meta-folder"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_desktop"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-430-1"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-S0A_C02"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_partner2"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_bank-notes"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_problem"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_prj-description"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_proposal"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_attch"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_elephant"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-ao_action-c"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_object"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_unicorn-approach"></span></li>
+  <li class="ui-state-default ui-corner-all"><span class="ui-icon ui-icon-art_football"></span></li>
+</ul>
+
+
+<!-- Slider -->
+<h2 class="demoHeaders"><a href="http://api.jqueryui.com/slider/" target="_blank">Slider</a></h2>
+<div id="slider"></div>
+
+
+
+<!-- Datepicker -->
+<h2 class="demoHeaders"><a href="http://api.jqueryui.com/datepicker/" target="_blank">Datepicker</a></h2>
+<div id="datepicker"></div>
+
+
+
+<!-- Progressbar -->
+<h2 class="demoHeaders"><a href="http://api.jqueryui.com/progressbar/" target="_blank">Progressbar</a></h2>
+<button id="progressStartButton">Start</button>
+<button id="progressResetButton">Reset</button>
+<p></p>
+<div id="progressbar"></div>
+
+
+
+<!-- Selectmenu -->
+<h2 class="demoHeaders"><a href="http://api.jqueryui.com/selectmenu/" target="_blank">Selectmenu</a></h2>
+<select id="selectmenu">
+	<option>Slower</option>
+	<option>Slow</option>
+	<option selected="selected">Medium</option>
+	<option>Fast</option>
+	<option>Faster</option>
+</select>
+
+
+
+<!-- Spinner -->
+<h2 class="demoHeaders"><a href="http://api.jqueryui.com/spinner/" target="_blank">Spinner</a></h2>
+<input id="spinner">
+
+
+
+<!-- Menu -->
+<h2 class="demoHeaders"><a href="http://api.jqueryui.com/menu/" target="_blank">Menu</a></h2>
+<ul style="width:100px;" id="menu">
+	<li>Item 1</li>
+	<li>Item 2</li>
+	<li>Item 3
+		<ul>
+			<li>Item 3-1</li>
+			<li>Item 3-2</li>
+			<li>Item 3-3</li>
+			<li>Item 3-4</li>
+			<li>Item 3-5</li>
+		</ul>
+	</li>
+	<li>Item 4</li>
+	<li>Item 5</li>
+</ul>
+
+
+
+<!-- Tooltip -->
+<h2 class="demoHeaders"><a href="http://api.jqueryui.com/tooltip/" target="_blank">Tooltip</a></h2>
+<p id="tooltip">
+	<a href="#" title="That&apos;s what this widget is">Tooltips</a> can be attached to any element. When you hover
+the element with your mouse, the title attribute is displayed in a little box next to the element, just like a native tooltip.
+</p>
+
+
+<!-- Highlight / Error -->
+<h2 class="demoHeaders">Highlight / Error</h2>
+<div class="ui-widget">
+	<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+		<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+		<strong>Hey!</strong> Sample ui-state-highlight style.</p>
+	</div>
+</div>
+<br>
+<div class="ui-widget">
+	<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+		<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+		<strong>Alert:</strong> Sample ui-state-error style.</p>
+	</div>
+</div>
+
+<!-- Table -->
+<h2 class="demoHeaders">Table</h2>
+<div class="ui-widget">
+  <table class="ui-table">
+    <thead>
+      <tr>
+        <td>Column 1</td><td>Column 2</td><td>Column 3</td><td>Column 4</td><td>Column 5</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>abc</td><td>def</td><td>ghi</td><td>jkl</td><td>mno</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<br/><br/>
+
+<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.js"></script>
+<script src="external/raphael/raphael-min.js"></script>
+<script>
+
+$( "#accordion" ).accordion();
+
+
+
+var availableTags = [
+	"ActionScript",
+	"AppleScript",
+	"Asp",
+	"BASIC",
+	"C",
+	"C++",
+	"Clojure",
+	"COBOL",
+	"ColdFusion",
+	"Erlang",
+	"Fortran",
+	"Groovy",
+	"Haskell",
+	"Java",
+	"JavaScript",
+	"Lisp",
+	"Perl",
+	"PHP",
+	"Python",
+	"Ruby",
+	"Scala",
+	"Scheme"
+];
+$( "#autocomplete" ).autocomplete({
+	source: availableTags
+});
+
+
+
+$( "#button" ).button();
+$( "#radioset" ).buttonset();
+
+
+
+$( "#tabs" ).tabs();
+$( "#tabs-raphael" ).tabs( { active: 1 } );
+
+/* Raphael example */
+var paper = Raphael( "tabs-raphael-1", 640, 240 );
+
+paper.rect( 40, 40, 50, 50, 5 );
+
+paper.path( 'M200,10C123,16,90,36,190,50C290,63,23,183,200,190' )
+     .attr( { stroke: "#2a1", "stroke-width":"2" } );
+
+paper.circle( 340, 90, 50 ).attr( { fill: "#bf2f2f", stroke: "#212121", "stroke-width":"2" } );
+
+
+paper = Raphael( "tabs-raphael-2", 800, 200 );
+
+var svgImages = [
+  'images/daily-calendar2.svg',
+  'images/done2.svg',
+  'images/magnifyingglass.svg',
+  'images/mail3.svg',
+  'images/operations.svg'
+];
+
+(function() {
+  function start() {
+    this.ox = this.attr("x");
+    this.oy = this.attr("y");
+    this.animate({width: 48, height: 48}, 100, ">");
+  };
+  function move(dx, dy) {
+    this.attr( {x: this.ox + dx, y: this.oy + dy} );
+  };
+  function up() {
+    this.animate( {width: 32, height: 32}, 100, ">");
+  };
+
+  svgImages.forEach( function( svgImage, index ) {
+    var imgEl = paper.image( svgImage, 40 + index * 64, 40, 32, 32 );
+    imgEl.attr( 'cursor', 'move' );
+    imgEl.drag( move, start, up );
+  });
+})();
+
+/* */
+
+
+$( "#dialog" ).dialog({
+	autoOpen: false,
+	width: 400,
+	buttons: [
+		{
+			text: "Ok",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		},
+		{
+			text: "Cancel",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	]
+});
+
+// Link to open the dialog
+$( "#dialog-link" ).click(function( event ) {
+	$( "#dialog" ).dialog( "open" );
+	event.preventDefault();
+});
+
+
+
+$( "#datepicker" ).datepicker({
+	inline: true
+});
+
+
+
+$( "#slider" ).slider({
+	range: true,
+	values: [ 17, 67 ]
+});
+
+
+
+$( "#progressbar" ).progressbar({
+	value: 0
+});
+
+$( "#progressStartButton" ).button();
+$( "#progressResetButton" ).button();
+
+$( "#progressStartButton" ).click( function() {
+
+  var progressInterval = setInterval( function() {
+    var value = $( '#progressbar' ).progressbar( 'option', 'value' );
+    var newValue = !isNaN( value ) ? ( value + 1 ) : 1;
+    if ( newValue > 100 ) {
+      $( '#progressbar' ).progressbar( { value: 100 } );
+      clearInterval( progressInterval );
+    } else {
+      $( '#progressbar' ).progressbar( { value: newValue } );
+    }
+  }, 20 );
+
+});
+
+$( "#progressResetButton" ).click( function() {
+  $( "#progressbar" ).progressbar( { value: 0 } );
+});
+
+
+
+
+$( "#spinner" ).spinner();
+
+
+
+$( "#menu" ).menu();
+
+
+
+$( "#tooltip" ).tooltip();
+
+
+
+$( "#selectmenu" ).selectmenu();
+
+
+// Hover states on the static widgets
+$( "#dialog-link, #icons li" ).hover(
+	function() {
+		$( this ).addClass( "ui-state-hover" );
+	},
+	function() {
+		$( this ).removeClass( "ui-state-hover" );
+	}
+);
+</script>
+</body>
+</html>
