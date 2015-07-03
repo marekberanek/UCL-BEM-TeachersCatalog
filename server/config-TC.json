@@ -1,11 +1,14 @@
 {
   "schema" : "PLUS4U.UCL.BEM.TeachersCatalog_Config_1.0",
-  "uri" : "UCL-BT:UCL/TEACHERS:CONFIG",
+  "uri" : "ues:UCL-BT:UCL/TEACHERS:CONFIG",
   "data" : {
-      "mar": "UCL-BT:UCLMMD/POZ",
-      "stateType": [
-       { "code" : "ues_UPTODATE" },
-       { "code" : "ues_OUTOFDATE" }
-      ]
+    "mar": "ues:UCL-BT:PPLMMD/EC",
+    "width": 800,
+    "height": 600,
+    "stateType": [
+      { "code" : "ues_INPROGRESS" },
+      { "code" : "ues_COMPLETED" },
+      { "code" : "ues_ATTENTION" }
+    ]
   }
 }

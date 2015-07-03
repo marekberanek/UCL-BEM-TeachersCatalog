@@ -79,8 +79,8 @@ class UCL_BEM_TeachersCatalog_Server < Sinatra::Base
 
 
   #default uuWidget Starting Rout
-  #for testing, call: localhost:81/getContent?options={"wt":"Catalog","mode":"debug"}&data={"tc":"UCL-BT:UCL/TEACHERS"}
-  #localhost:9292/getContent?options=%7B%22wt%22%3A%22Catalog%22%2C%22mode%22%3A%22debug%22%7D&data=%7B%22tc%22%3A%22UCL-BT%3AUCL%2FTEACHERS%22%7D
+  #for testing, call: localhost:81/getContent?options={"wt":"Catalog","mode":"debug"}&data={"tc":"ues:UCL-BT:UCL/TEACHERS"}
+  #localhost:9292/getContent?options=%7B%22wt%22%3A%22Catalog%22%2C%22mode%22%3A%22debug%22%7D&data%3D%7B%22tc%22%3A%22ues%3AUCL-BT%3AUCL%2FTEACHERS%22%7D
   get '/getContent' do
     options = (!params[:options].nil?) ? JSON.parse(params[:options], symbolize_names: true) : {}
     widgetType = (!options[:wt].nil?) ? options[:wt] : "Catalog"

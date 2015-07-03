@@ -1,0 +1,32 @@
+*[id^='PLUS4U-UCL-BEM-TeachersCatalog-Widget001-error-']{
+    position:absolute;
+    left:30px;
+    top:290px;
+    width:750px;
+}
+
+#PLUS4U-UCL-BEM-TeachersCatalog-Widget001 #teachersCatalog {
+    width: 800px;
+    font-size: 14px;
+}
+
+#PLUS4U-UCL-BEM-TeachersCatalog-Widget001 #teachersCatalogHeader {
+    position:absolute;
+    width:400px;
+    left:30px;
+    top:10px;
+    font-size:20px;
+}
+
+#PLUS4U-UCL-BEM-TeachersCatalog-Widget001 .meetingRoomTabContentSpinner {
+    width: 50%;
+    height: 50%;
+    position:absolute;
+    top:0%;
+    left:0%;
+    margin-left:0%;
+    margin-top:0%;
+    padding-left:50%;
+    padding-top:24%;
+    background-color:rgba(1, 0, 1, 0.2);
+}

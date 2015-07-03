@@ -18,7 +18,7 @@ class UCL_BEM_TeachersCatalog
 
     @uuID = uuID
     @tc = teachersCatalog
-    @tcConfigUri = "ues:"+@tc+":CONFIG"
+    @tcConfigUri = @tc+":CONFIG"
 
     @tcConfig = {}
 
