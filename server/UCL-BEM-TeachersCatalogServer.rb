@@ -79,8 +79,8 @@ class UCL_BEM_TeachersCatalog_Server < Sinatra::Base
 
 
   #default uuWidget Starting Rout
-  #for testing, call: localhost:81/getContent?options={"wt":"Catalog","mode":"debug"}&data={"tc":"ues:UCL-BT:UCL/TEACHERS"}
-  #localhost:9292/getContent?options=%7B%22wt%22%3A%22Catalog%22%2C%22mode%22%3A%22debug%22%7D&data%3D%7B%22tc%22%3A%22ues%3AUCL-BT%3AUCL%2FTEACHERS%22%7D
+  #for testing, call: localhost:81/getContent?options={"wt":"Catalog","mode":"debug"}&data={"tc":"ues:UCL-BT:UCL/VYUCUJICI"}
+  #localhost:9292/getContent?options=%7B%22wt%22%3A%22Catalog%22%2C%22mode%22%3A%22debug%22%7D&data%3D%7B%22tc%22%3A%22ues%3AUCL-BT%3AUCL%2FVYUCUJICI%22%7D
   get '/getContent' do
     options = (!params[:options].nil?) ? JSON.parse(params[:options], symbolize_names: true) : {}
     widgetType = (!options[:wt].nil?) ? options[:wt] : "Catalog"
@@ -142,6 +142,23 @@ class UCL_BEM_TeachersCatalog_Server < Sinatra::Base
 
     UU::OS::Security::Session.logout() #+4U logout
     @uuDTO_out.to_json
+  end
+
+  post '/UCL-BEM-TeachersCatalog/getTeachersList' do
+  #serve Teachers List
+
+    begin
+      #test - MAR Missing, stateType Missing
+      (!@uuDTO_in['data']['body'].key?('mar')) && (raise "UCL_BEM_TeachersCatalog_getTeachersList_MARMissing")
+      (!@uuDTO_in['data']['body'].key?('stateType')) && (raise "UCL_BEM_TeachersCatalog_getTeachersList_StateTypeMissing")
+
+      #get Teachers List
+      @uuDTO_out["data"]["body"]={}
+
+      @uuDTO_out["data"]["body"]["teachersList"]= JSON.parse @myTC.getListOfTeachers @uuDTO_in['data']['body']['mar'], @uuDTO_in['data']['body']['stateType']
+      UU::OS::Security::Session.logout() #+4U logout
+      @uuDTO_out.to_json
+    end
   end
 
 end

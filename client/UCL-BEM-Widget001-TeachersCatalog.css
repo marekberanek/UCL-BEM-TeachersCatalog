@@ -5,17 +5,13 @@
     width:750px;
 }
 
-#PLUS4U-UCL-BEM-TeachersCatalog-Widget001 #teachersCatalog {
-    width: 800px;
-    font-size: 14px;
+body {
+    font-family: "Clear Sans";
+    font-size: 9px;
 }
 
-#PLUS4U-UCL-BEM-TeachersCatalog-Widget001 #teachersCatalogHeader {
-    position:absolute;
-    width:400px;
-    left:30px;
-    top:10px;
-    font-size:20px;
+#PLUS4U-UCL-BEM-TeachersCatalog-Widget001 #teachersCatalog {
+    width: 800px;
 }
 
 #PLUS4U-UCL-BEM-TeachersCatalog-Widget001 .meetingRoomTabContentSpinner {
@@ -30,3 +26,6 @@
     padding-top:24%;
     background-color:rgba(1, 0, 1, 0.2);
 }
+
+
+.jqx-widget-ui-start{font-size:14px; font-family: "Clear Sans";}

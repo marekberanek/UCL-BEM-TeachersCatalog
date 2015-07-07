@@ -12,5 +12,8 @@ UU::OS::Security::Session.login '/Users/marekberanek/Documents/uuProjects/UCL-BE
 #create instance of Meeting Room Schedule
 myTC = UCL_BEM_TeachersCatalog.new "ues:UCL-BT:UCL/TEACHERS", "6-11-1"
 
-puts myTC.getConfig()
+#puts myTC.getConfig()
 
+puts myTC.getListOfTeachers("PPLMMD/EC", "active")
+
+#puts myTC.getTeacherPropertyValue "UCL-BT:ucl279/KARTA", "EMP_NAME"
