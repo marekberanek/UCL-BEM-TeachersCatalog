@@ -40,11 +40,10 @@ class UCL_BEM_TeachersCatalog
 
   # Get list of appropriate teachers
   # @return [JSON] list of appropriate teachers
-  def getListOfTeachers mar, stateType
-    territoryUri = "ues:UCL-BT:UCL-BT"
+  def getListOfTeachers location, mar, stateType
     query = "stateType = " + stateType + " and metaArtifactCode = '" + mar +"' order by name"
     #query = "code= 'UCL/UP'"
-    listOfTeachers = UU::OS::ArtifactSearch.query(territoryUri, :query => query)
+    listOfTeachers = UU::OS::ArtifactSearch.query(location, :query => query)
 
     teachers = []
 
@@ -53,11 +52,11 @@ class UCL_BEM_TeachersCatalog
       teacher = Hash.new
       teacher["code"] = item.code
       teacher["name"] = item.name
-      teacher["firstname"] = item.name.split(" ").last
+      teacher["firstName"] = item.name.split(" ").last
       if (item.name.split(" ").length > 2)
-        teacher["surname"] = item.name.split(" ")[0] + " " +item.name.split(" ")[1]
+        teacher["lastName"] = item.name.split(" ")[0] + " " +item.name.split(" ")[1]
       else
-        teacher["surname"] = item.name.split(" ").first
+        teacher["lastName"] = item.name.split(" ").first
       end
       teacher["degreeBefore"] = ""
       teacher["degreeAfter"] = ""
@@ -68,7 +67,6 @@ class UCL_BEM_TeachersCatalog
       teacher["personalPortal"] = item.code.split("/")[0] + "/PORTAL"
       teacher["businessCard"] = ""
       teachers << teacher
-
     end
 
     jsonTeachers = JSON.pretty_generate(teachers)

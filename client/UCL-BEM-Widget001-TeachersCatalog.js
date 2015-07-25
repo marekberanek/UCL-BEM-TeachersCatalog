@@ -49,17 +49,18 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
       env.urlVariables = env.urlVariables || {};
       env.urlVariables.data = env.urlVariables.data || {};
       env.urlVariables.data.tc = env.urlVariables.data.tc || {};
-      env.urlVariables.options = env.urlVariables.options || {"mode": "debug"};
-      env.urlVariables.options.wt = env.urlVariables.options.wt || 'Catalog';
+      env.urlVariables.options = env.urlVariables.options || {"mode": "debug", "lang": "cz"};
+      env.urlVariables.options.lang = env.urlVariables.options.lang || 'cz';
       env.urlVariables.options.mode = env.urlVariables.options.mode || 'standard';  //'debug'
       env.urlVariables.referreruri = env.urlVariables.referreruri || '';
+
 
       //Widget properties
       this.id = "#PLUS4U-UCL-BEM-TeachersCatalog-Widget001";        //Widget id
       this.tc = env.urlVariables.data.tc         //Specified Teachers Catalogue
       this.loginToken = env.loginToken;          //User Login Token
-      this.ratingID = env.urlVariables.referreruri + '/' + env.urlVariables.options.ratingID;   //Rating ID
       this.debug = (env.urlVariables.options.mode === 'debug') ? true : false;
+      this.lang = env.urlVariables.options.lang;
       (this.debug) && (console.log(JSON.stringify(env)));
 
       this.cTC = {};       //Teachers Catalog Configuration Structure
@@ -70,7 +71,7 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
         .appendTo('body');
 
       this
-        .errorMsg({'type': 'info', 'message': 'Welcome, UCL Teachers Catalog is loading..', 'time': 5 * 1000})
+        .errorMsg({'type': 'info', 'message': 'Teachers Catalog is loading..', 'time': 5 * 1000})
         .serverLoadConfig();
 
     } catch (e) {
@@ -129,8 +130,10 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
         status: "",
         body: {
           "tc": this.tc,
+          "location": this.cTC.data.body.config.location,
           "mar": this.cTC.data.body.config.mar,
-          "stateType": this.cTC.data.body.config.stateType}
+          "stateType": this.cTC.data.body.config.stateType
+          }
       }
     };
     var myself = this;
@@ -151,7 +154,7 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
       error: function (jqXHR, textStatus, errorThrown) {
         myself.errorMsg({
           'type': 'error',
-          'message': 'Get teachers list in not available!',
+          'message': 'Get teachers list is not available!',
           'time': 24 * 60 * 60 * 1000
         });
         (myself.debug) && (console.log(JSON.stringify(jqXHR) + "\n" + textStatus + "\n" + errorThrown));
@@ -171,6 +174,13 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
       try {
 
         var tc = this.cTC.data.body.config;
+        var labels = {};
+        if (this.lang === "cz") {
+          labels = this.cTC.data.body.config.labels.cz;
+        } else {
+          labels = this.cTC.data.body.config.labels.en;
+        }
+
         var teachersList = this.cTC.teachers.data.body.teachersList;
 
         // build TC
@@ -193,8 +203,8 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
           var row = {};
           row["code"] = teachersList[k].code;
           row["degreeBefore"] = teachersList[k].degreeBefore;
-          row["firstname"] = teachersList[k].firstname;
-          row["surname"] = teachersList[k].surname;
+          row["firstName"] = teachersList[k].firstName;
+          row["lastName"] = teachersList[k].lastName;
           row["degreeAfter"] = teachersList[k].degreeAfter;
           row["department"] = teachersList[k].department;
           row["title"] = teachersList[k].title;
@@ -218,26 +228,26 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
         var updatePanel = function (index) {
           var container = $('<div style="margin: 5px;"></div>')
           var datarecord = data[index];
-          var degreeBefore = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>Degree Before:</b> " + datarecord.degreeBefore + "</div>";
-          var firstName = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>First Name:</b> " + datarecord.firstname + "</div>";
-          var lastName = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>Last Name:</b> " + datarecord.surname + "</div>";
-          var degreeAfter = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>Degree After:</b> " + datarecord.degreeAfter + "</div>";
-          var department = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>Department:</b> " + datarecord.department + "</div>";
-          var title = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>Title:</b> " + datarecord.title + "</div>";
-          var phone = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>Phone:</b> " + datarecord.phone + "</div>";
-          var email = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>E-mail:</b> " + datarecord.email + "</div>";
-          var personalPortal = "<div class='jqx-widget-ui-start' style='margin: 10px;'><a target='_new' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.personalPortal + "'>Personal Portal</a></div>";
-          var businessCard = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>Business Card:</b> " + datarecord.businessCard + "</div>";
-          container.append(degreeBefore);
-          container.append(firstName);
-          container.append(lastName);
-          container.append(degreeAfter);
-          container.append(department);
-          container.append(title);
-          container.append(phone);
-          container.append(email);
-          container.append(personalPortal);
-          container.append(businessCard);
+          var degreeBefore = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.degreeBefore + ":</b> " + datarecord.degreeBefore + "</div>";
+          var firstName = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.firstName + ":</b> " + datarecord.firstName + "</div>";
+          var lastName = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.lastName + ":</b> " + datarecord.lastName + "</div>";
+          var degreeAfter = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.degreeAfter + ":</b> " + datarecord.degreeAfter + "</div>";
+          var department = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.department + ":</b> " + datarecord.department + "</div>";
+          var title = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.title + ":</b> " + datarecord.title + "</div>";
+          var phone = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.phone + ":</b> " + datarecord.phone + "</div>";
+          var email = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.email + ":</b> " + datarecord.email + "</div>";
+          var personalPortal = "<div class='jqx-widget-ui-start' style='margin: 10px;'><a target='_new' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.personalPortal + "'>" + labels.personalPortal + "</a></div>";
+          var businessCard = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.businessCard + ":</b> " + datarecord.businessCard + "</div>";
+          (datarecord.degreeBefore !== "") && container.append(degreeBefore);
+          (datarecord.firstName !== "") && container.append(firstName);
+          (datarecord.lastName !== "") && container.append(lastName);
+          (datarecord.degreeAfter !== "") && container.append(degreeAfter);
+          (datarecord.department !== "") && container.append(department);
+          (datarecord.title !== "") && container.append(title);
+          (datarecord.phone !== "") && container.append(phone);
+          (datarecord.email !== "") && container.append(email);
+          (datarecord.personalPortal !== "") && container.append(personalPortal);
+          (datarecord.businessCard !== "") && container.append(businessCard);
           $("#catalogContentPanel").html(container.html());
         }
         $('#catalogListBox').on('select', function (event) {
@@ -246,13 +256,15 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
         });
 
         // Create jqxListBox
-        $('#catalogListBox').jqxListBox({ filterable: true, filterPlaceHolder: "Search surname", selectedIndex: 0, theme: "ui-start", source: dataAdapter, displayMember: "surname", valueMember: "code", itemHeight: 70, height: '100%', width: '100%',
+        $('#catalogListBox').jqxListBox({ filterable: true, filterPlaceHolder: labels.filterPlaceHolder, selectedIndex: 0, theme: "ui-start", source: dataAdapter, displayMember: "lastName", valueMember: "code", height: '100%', width: '100%',
           renderer: function (index, label, value) {
             var datarecord = data[index];
-            var imgurl = '../../images/' + label.toLowerCase() + '.png';
-            var img = '<img height="50" width="40" src="' + imgurl + '"/>';
-            var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2">' +
-              img + '</td><td>' + datarecord.firstname + " " + datarecord.surname + '</td></tr><tr><td>' +
+            //var imgurl = '../../images/' + label.toLowerCase() + '.png';
+            //var img = '<img height="50" width="40" src="' + imgurl + '"/>';
+            //var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2">' +
+            //  img + '</td><td>' + datarecord.firstName + " " + datarecord.lastName + '</td></tr><tr><td>' +
+            //  datarecord.department + '</td></tr></table>';
+            var table = '<table style="min-width: 130px;"><tr><td>' + datarecord.firstName + " " + datarecord.lastName + '</td></tr><tr><td>' +
               datarecord.department + '</td></tr></table>';
             return table;
           }

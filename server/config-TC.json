@@ -4,7 +4,35 @@
   "data" : {
     "mar": "PPLMMD/EC",
     "width": 800,
-    "height": 600,
-    "stateType": "active"
+    "height": 400,
+    "stateType": "active",
+    "labels" : {
+      "cz" : {
+        "degreeBefore" : "Titul před",
+        "firstName" : "Jméno",
+        "lastName" : "Příjmení",
+        "degreeAfter" : "Titul za",
+        "department" : "Katedra",
+        "title" : "Pozice",
+        "phone" : "Telefon",
+        "email" : "E-mail",
+        "personalPortal" : "Osobní portál",
+        "businessCard" : "Vizitka",
+        "filterPlaceHolder" : "Hledat dle příjmení"
+      },
+      "en" : {
+        "degreeBefore" : "Degree Before",
+        "firstName" : "First Name",
+        "lastName" : "Last Name",
+        "degreeAfter" : "Degree After",
+        "department" : "Department",
+        "title" : "Title",
+        "phone" : "Phone",
+        "email" : "E-mail",
+        "personalPortal" : "Personal Portal",
+        "businessCard" : "Business Card",
+        "filterPlaceHolder" : "Search surname"
+      }
+    }
   }
 }

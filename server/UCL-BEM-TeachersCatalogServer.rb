@@ -79,11 +79,10 @@ class UCL_BEM_TeachersCatalog_Server < Sinatra::Base
 
 
   #default uuWidget Starting Rout
-  #for testing, call: localhost:81/getContent?options={"wt":"Catalog","mode":"debug"}&data={"tc":"ues:UCL-BT:UCL/VYUCUJICI"}
-  #localhost:9292/getContent?options=%7B%22wt%22%3A%22Catalog%22%2C%22mode%22%3A%22debug%22%7D&data%3D%7B%22tc%22%3A%22ues%3AUCL-BT%3AUCL%2FVYUCUJICI%22%7D
+  #for testing, call: localhost:81/getContent?options={"mode":"debug", "lang":"en"}&data={"tc":"ues:UCL-BT:UCL/VYUCUJICI"}
+  #localhost:9292/getContent?options=%7B%22mode%22%3A%22debug%22%2C%20%22lang%22%3A%22en%22%7D&data=%7B%22tc%22%3A%22ues%3AUCL-BT%3AUCL%2FVYUCUJICI%22%7D
   get '/getContent' do
     options = (!params[:options].nil?) ? JSON.parse(params[:options], symbolize_names: true) : {}
-    widgetType = (!options[:wt].nil?) ? options[:wt] : "Catalog"
     widgetFile = "UCL-BEM-Widget001-TeachersCatalog.htm"
     send_file(File.join(settings.public_folder, widgetFile));
   end
@@ -126,7 +125,7 @@ class UCL_BEM_TeachersCatalog_Server < Sinatra::Base
       #test - Teachers Catalog missing
       (!@uuDTO_in['data']['body'].key?('tc')) && (raise "UCL_BEM_TeachersCatalog_before_TeachersCatalogMissing")
 
-      #create instance of Rating
+      #create instance of Teachers Catalog
       (UU::OS::Security::Session.login('/Users/marekberanek/Documents/uuProjects/UCL-BEM-TeachersCatalog/server/access')) || (raise "UCL_BEM_TeachersCatalog_before_uuEELoginFail") #Comment for server
 
       @myTC = UCL_BEM_TeachersCatalog.new @uuDTO_in["data"]["body"]["tc"], @uuID
@@ -149,13 +148,14 @@ class UCL_BEM_TeachersCatalog_Server < Sinatra::Base
 
     begin
       #test - MAR Missing, stateType Missing
+      (!@uuDTO_in['data']['body'].key?('location')) && (raise "UCL_BEM_TeachersCatalog_getTeachersList_LocationMissing")
       (!@uuDTO_in['data']['body'].key?('mar')) && (raise "UCL_BEM_TeachersCatalog_getTeachersList_MARMissing")
       (!@uuDTO_in['data']['body'].key?('stateType')) && (raise "UCL_BEM_TeachersCatalog_getTeachersList_StateTypeMissing")
 
       #get Teachers List
       @uuDTO_out["data"]["body"]={}
 
-      @uuDTO_out["data"]["body"]["teachersList"]= JSON.parse @myTC.getListOfTeachers @uuDTO_in['data']['body']['mar'], @uuDTO_in['data']['body']['stateType']
+      @uuDTO_out["data"]["body"]["teachersList"]= JSON.parse @myTC.getListOfTeachers @uuDTO_in['data']['body']['location'], @uuDTO_in['data']['body']['mar'], @uuDTO_in['data']['body']['stateType']
       UU::OS::Security::Session.logout() #+4U logout
       @uuDTO_out.to_json
     end
