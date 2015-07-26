@@ -207,9 +207,7 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
           row["lastName"] = teachersList[k].lastName;
           row["degreeAfter"] = teachersList[k].degreeAfter;
           row["department"] = teachersList[k].department;
-          row["title"] = teachersList[k].title;
-          row["phone"] = teachersList[k].phone;
-          row["email"] = teachersList[k].email;
+          row["position"] = teachersList[k].position;
           row["personalPortal"] = teachersList[k].personalPortal;
           row["businessCard"] = teachersList[k].businessCard;
           data[i] = row;
@@ -232,10 +230,21 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
           var firstName = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.firstName + ":</b> " + datarecord.firstName + "</div>";
           var lastName = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.lastName + ":</b> " + datarecord.lastName + "</div>";
           var degreeAfter = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.degreeAfter + ":</b> " + datarecord.degreeAfter + "</div>";
-          var department = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.department + ":</b> " + datarecord.department + "</div>";
-          var title = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.title + ":</b> " + datarecord.title + "</div>";
-          var phone = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.phone + ":</b> " + datarecord.phone + "</div>";
-          var email = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.email + ":</b> " + datarecord.email + "</div>";
+          var departmentLink = "";
+
+          // Set proper department link and name
+          if (datarecord.department.match(/(EDU.DIT\/PORTAL)/g) == "EDU.DIT/PORTAL") {
+            departmentLink = "<a target='_new' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dit + "</a>";
+          } else if (datarecord.department.match(/(EDU.DEM\/PORTAL)/g) == "EDU.DEM/PORTAL") {
+            departmentLink = "<a target='_new' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dem + "</a>";
+          } else if (datarecord.department.match(/(EDU.DLA\/PORTAL)/g) == "EDU.DLA/PORTAL") {
+            departmentLink = "<a target='_new' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dla + "</a>";
+          } else {
+            departmentLink = "";
+          }
+
+          var department = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.department + ":</b> " + departmentLink + "</div>";
+          var position = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.position + ":</b> " + datarecord.position + "</div>";
           var personalPortal = "<div class='jqx-widget-ui-start' style='margin: 10px;'><a target='_new' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.personalPortal + "'>" + labels.personalPortal + "</a></div>";
           var businessCard = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.businessCard + ":</b> " + datarecord.businessCard + "</div>";
           (datarecord.degreeBefore !== "") && container.append(degreeBefore);
@@ -243,9 +252,7 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
           (datarecord.lastName !== "") && container.append(lastName);
           (datarecord.degreeAfter !== "") && container.append(degreeAfter);
           (datarecord.department !== "") && container.append(department);
-          (datarecord.title !== "") && container.append(title);
-          (datarecord.phone !== "") && container.append(phone);
-          (datarecord.email !== "") && container.append(email);
+          (datarecord.position !== "") && container.append(position);
           (datarecord.personalPortal !== "") && container.append(personalPortal);
           (datarecord.businessCard !== "") && container.append(businessCard);
           $("#catalogContentPanel").html(container.html());
@@ -264,8 +271,21 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
             //var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2">' +
             //  img + '</td><td>' + datarecord.firstName + " " + datarecord.lastName + '</td></tr><tr><td>' +
             //  datarecord.department + '</td></tr></table>';
+
+            // Set proper department link and name
+            if (datarecord.department.match(/(EDU.DIT\/PORTAL)/g) == "EDU.DIT/PORTAL") {
+              departmentName = labels.dit;
+            } else if (datarecord.department.match(/(EDU.DEM\/PORTAL)/g) == "EDU.DEM/PORTAL") {
+              departmentName = labels.dem;
+            } else if (datarecord.department.match(/(EDU.DLA\/PORTAL)/g) == "EDU.DLA/PORTAL") {
+              departmentName = labels.dla;
+            } else {
+              departmentName = "";
+            }
+
+
             var table = '<table style="min-width: 130px;"><tr><td>' + datarecord.firstName + " " + datarecord.lastName + '</td></tr><tr><td>' +
-              datarecord.department + '</td></tr></table>';
+                departmentName + '</td></tr></table>';
             return table;
           }
         });

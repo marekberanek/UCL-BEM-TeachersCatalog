@@ -19,6 +19,7 @@ class UCL_BEM_TeachersCatalog
     @uuID = uuID
     @tc = teachersCatalog
     @tcConfigUri = @tc+":CONFIG"
+    @tcDataUri = @tc+":DATA"
 
     @tcConfig = {}
 
@@ -38,34 +39,42 @@ class UCL_BEM_TeachersCatalog
     return UU::OS::Property.get_value("ues:UCL-BT:#{artifact}:#{property}")
   end
 
+  def convertNull2Empty(value)
+    if value == nil
+      value = ""
+    end
+
+    return value
+  end
+
   # Get list of appropriate teachers
   # @return [JSON] list of appropriate teachers
   def getListOfTeachers location, mar, stateType
     query = "stateType = " + stateType + " and metaArtifactCode = '" + mar +"' order by name"
     #query = "code= 'UCL/UP'"
-    listOfTeachers = UU::OS::ArtifactSearch.query(location, :query => query)
+    #listOfTeachers = UU::OS::ArtifactSearch.query(location, :query => query)
+
+    listOfTeachers = JSON.parse(UU::OS::Property.get_value(@tcDataUri).data.read)
+
+    puts listOfTeachers.count
 
     teachers = []
 
     i = 0
     for item in listOfTeachers
       teacher = Hash.new
-      teacher["code"] = item.code
-      teacher["name"] = item.name
-      teacher["firstName"] = item.name.split(" ").last
-      if (item.name.split(" ").length > 2)
-        teacher["lastName"] = item.name.split(" ")[0] + " " +item.name.split(" ")[1]
-      else
-        teacher["lastName"] = item.name.split(" ").first
-      end
-      teacher["degreeBefore"] = ""
-      teacher["degreeAfter"] = ""
-      teacher["department"] = ""
-      teacher["title"] = ""
-      teacher["phone"] = ""
-      teacher["email"] = ""
-      teacher["personalPortal"] = item.code.split("/")[0] + "/PORTAL"
-      teacher["businessCard"] = ""
+      teacher["code"] = item["CODE"]
+      teacher["firstName"] = convertNull2Empty(item["EMP_NAME"])
+      teacher["lastName"] = convertNull2Empty(item["EMP_SURNAME"])
+      teacher["degreeBefore"] = convertNull2Empty(item["EMP_TBN"])
+      teacher["degreeAfter"] = convertNull2Empty(item["EMP_TAN"])
+      teacher["department"] = convertNull2Empty(item["EMP_DEP"])
+      teacher["rank"] = convertNull2Empty(item["EMP_RAN"])
+      teacher["position"] = convertNull2Empty(item["EMP_POS"])
+      teacher["personalPortal"] = convertNull2Empty(item["CODE"])
+      teacher["businessCard"] = convertNull2Empty(item["SYS.PPL/UID"])
+      teacher["personCard"] = convertNull2Empty(item["EMP_PC"])
+      teacher["photo"] = convertNull2Empty(item["PHOTO"])
       teachers << teacher
     end
 

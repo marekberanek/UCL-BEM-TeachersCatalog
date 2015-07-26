@@ -9,7 +9,7 @@ require File.dirname(__FILE__)+'/../server/UCL-BEM-TeachersCatalog'
 #start +4U session
 UU::OS::Security::Session.login '/Users/marekberanek/Documents/uuProjects/UCL-BEM-TeachersCatalog/server/access'
 
-#create instance of Meeting Room Schedule
+#create instance of Teachers Catalog
 myTC = UCL_BEM_TeachersCatalog.new "ues:UCL-BT:UCL/VYUCUJICI", "6-11-1"
 
 #puts myTC.getConfig()
