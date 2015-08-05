@@ -2,6 +2,7 @@
 
 require "uu_os_client"
 require 'json'
+require 'base64'
 
 #UCL-BEM-TeachersCatalog Update - Client script for catalog updating represented by JSON file
 
@@ -30,7 +31,8 @@ end
 
 def retrieveTeachersList (stateType, mar, location)
   query = "stateType = " + stateType + " and metaArtifactCode = '" + mar +"' order by name"
-  listOfTeachers = UU::OS::ArtifactSearch.query(location, :query => query)
+  #query = "stateType = " + stateType + " and metaArtifactCode = '" + mar +"' and code='ucl002/KARTA' order by name"
+    listOfTeachers = UU::OS::ArtifactSearch.query(location, :query => query)
   return listOfTeachers
 end
 
@@ -38,6 +40,26 @@ def getPropertyValue (artifactCode, propertyCode)
   puts "Retrieving value from #{propertyCode}"
   result = UU::OS::Property.get_value "#{artifactCode}:#{propertyCode}"
   return result
+rescue UU::OS::QoS::QoSLimitException
+  if count < 5
+    #wait for some time
+    sleep(QOSWAIT)
+    count += 1
+    #retry previous command
+    retry
+  else
+    puts e.code
+    exit
+  end
+end
+
+def getPhoto(pc)
+  pcAttributes = UU::OS::Property.get_value("#{pc}:UU.BEM/PIC/ATTRIBUTES").data.read
+  plus4uPeopleCard = JSON.parse(pcAttributes)["UU_BEM_PIC_PLUS4U_PEOPLE_CARD"]
+  apPhotoBT = "#{plus4uPeopleCard}UU.PLUS4UPPL/PHOTO_BT"
+  bvPhoto = UU::OS::Property.get_value(apPhotoBT).data.read
+
+  return bvPhoto
 rescue UU::OS::QoS::QoSLimitException
   if count < 5
     #wait for some time
@@ -107,16 +129,19 @@ for item in result
     if property.code == "EMP_PC"
       teacher["EMP_PC"] = property.value
     end
-    if property.code == "EMP_PC"
-      teacher["EMP_PC"] = property.value
-    end
   }
 
   teacher["CODE"] = item.code # artifact code
+
   teacher["PHOTO"] = ""
 
+  if (teacher["EMP_PC"] != nil && teacher["EMP_PC"] != "")
+    #bv = getPhoto(teacher["EMP_PC"])
+    #teacher["PHOTO"] = Base64.encode64(bv)
+  end
+
+
   teachers << teacher
-  puts teacher
 
   durationFinish = Time.now
   duration = durationFinish - durartionStart
@@ -127,6 +152,53 @@ end
 # Update AP DATA with updated JSON
 tc_binary=UU::OS::REST::BinaryValue.new(teachers.to_json)
 UU::OS::Property.set_value(tcDataUri, tc_binary)
+
+puts "JSON file with raw data updated"
+
+for item in teachers
+  puts "Starting processing #{item["EMP_SURNAME"]}"
+  durartionStart = Time.now
+
+  if (item["EMP_PC"] != nil && item["EMP_PC"] != "")
+    bv = getPhoto(item["EMP_PC"])
+    item["PHOTO"] = Base64.encode64(bv)
+  end
+
+  durationFinish = Time.now
+  duration = durationFinish - durartionStart
+  puts "#{item["EMP_SURNAME"]} processed - duration: #{duration}"
+end
+
+# Update AP DATA with updated JSON
+tc_binary=UU::OS::REST::BinaryValue.new(teachers.to_json)
+UU::OS::Property.set_value(tcDataUri, tc_binary)
+
+puts "JSON file with photos updated"
+
+
+jsonString = '{"cols": [{"label":"Příjmení a jméno"},'
+jsonString << '{"label":"Katedra","type":"uesuri"},{"label":"Vizitka","type":"uesuri"},{"label":"Osobní portál","type":"uesuri"}],'
+jsonString << '"rows": ['
+
+i = 0
+
+for item in teachers
+  jsonString << '{"c": ['
+  jsonString << '{"v": "' + item["EMP_TBN"] + ' ' + item["EMP_SURNAME"] + " " + item["EMP_NAME"] + ', ' + item["EMP_TAN"] + '"},'
+  jsonString << '{"v": "' + item["EMP_DEP"].to_s + '"},'
+  jsonString << '{"v": "ues:UCL-BT:' + item["SYS.PPL/UID"] + '"},'
+  jsonString << '{"v": "ues:UCL-BT:' + item["CODE"] + '"}'
+  if i < (teachers.count-1)
+    jsonString << ']},'
+  else
+    jsonString << ']}'
+  end
+  i += 1
+end
+
+jsonString << ']}'
+
+puts jsonString
 
 
 # Save teachers array to JSON file

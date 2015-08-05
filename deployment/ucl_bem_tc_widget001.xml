@@ -1,0 +1,6 @@
+<service>
+  <uri>ues-uwt:ucl.bem.tc.widget001</uri>
+  <realization>/ues/uiwcp/c6-24/uu/example/widget/getContent</realization>
+  <width>900</width>
+  <height>500</height>
+</service>

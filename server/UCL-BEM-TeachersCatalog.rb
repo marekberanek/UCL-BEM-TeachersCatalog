@@ -70,7 +70,6 @@ class UCL_BEM_TeachersCatalog
       teacher["degreeAfter"] = convertNull2Empty(item["EMP_TAN"])
       teacher["department"] = convertNull2Empty(item["EMP_DEP"])
       teacher["rank"] = convertNull2Empty(item["EMP_RAN"])
-      teacher["position"] = convertNull2Empty(item["EMP_POS"])
       teacher["personalPortal"] = convertNull2Empty(item["CODE"])
       teacher["businessCard"] = convertNull2Empty(item["SYS.PPL/UID"])
       teacher["personCard"] = convertNull2Empty(item["EMP_PC"])
@@ -81,6 +80,14 @@ class UCL_BEM_TeachersCatalog
     jsonTeachers = JSON.pretty_generate(teachers)
 
     return jsonTeachers
+  rescue UU::OS::QoS::QoSLimitException
+    if count < 5
+      #wait for some time
+      sleep(QOSWAIT)
+      count += 1
+      #retry previous command
+      retry
+    end
   end
 
   # Get Teachers Catalog Configuration.

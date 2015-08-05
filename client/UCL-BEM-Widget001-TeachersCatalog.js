@@ -1,5 +1,10 @@
 /**
+ * Demo: http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxlistbox/index.htm?(arctic)#demos/jqxlistbox/rendering.htm
+ */
+
+/**
  * @class Represents widget UCL Teachers Catalog Widget001.
+ *
  */
 function uuWidget() {
 //UU Widget standard template
@@ -207,9 +212,9 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
           row["lastName"] = teachersList[k].lastName;
           row["degreeAfter"] = teachersList[k].degreeAfter;
           row["department"] = teachersList[k].department;
-          row["position"] = teachersList[k].position;
           row["personalPortal"] = teachersList[k].personalPortal;
           row["businessCard"] = teachersList[k].businessCard;
+          row["photo"] = teachersList[k].photo;
           data[i] = row;
           k++;
         }
@@ -232,7 +237,7 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
           var degreeAfter = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.degreeAfter + ":</b> " + datarecord.degreeAfter + "</div>";
           var departmentLink = "";
 
-          // Set proper department link and name
+          // Set department link and name
           if (datarecord.department.match(/(EDU.DIT\/PORTAL)/g) == "EDU.DIT/PORTAL") {
             departmentLink = "<a target='_new' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dit + "</a>";
           } else if (datarecord.department.match(/(EDU.DEM\/PORTAL)/g) == "EDU.DEM/PORTAL") {
@@ -243,16 +248,14 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
             departmentLink = "";
           }
 
-          var department = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.department + ":</b> " + departmentLink + "</div>";
-          var position = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.position + ":</b> " + datarecord.position + "</div>";
+          var department = "<div class='jqx-widget-ui-start' style='margin: 10px;'>" + departmentLink + "</div>";
           var personalPortal = "<div class='jqx-widget-ui-start' style='margin: 10px;'><a target='_new' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.personalPortal + "'>" + labels.personalPortal + "</a></div>";
-          var businessCard = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.businessCard + ":</b> " + datarecord.businessCard + "</div>";
+          var businessCard = "<div class='jqx-widget-ui-start' style='margin: 10px;'><a target='_new' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.businessCard + "'>" + labels.businessCard + "</a></div>";
           (datarecord.degreeBefore !== "") && container.append(degreeBefore);
           (datarecord.firstName !== "") && container.append(firstName);
           (datarecord.lastName !== "") && container.append(lastName);
           (datarecord.degreeAfter !== "") && container.append(degreeAfter);
           (datarecord.department !== "") && container.append(department);
-          (datarecord.position !== "") && container.append(position);
           (datarecord.personalPortal !== "") && container.append(personalPortal);
           (datarecord.businessCard !== "") && container.append(businessCard);
           $("#catalogContentPanel").html(container.html());
@@ -266,13 +269,8 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
         $('#catalogListBox').jqxListBox({ filterable: true, filterPlaceHolder: labels.filterPlaceHolder, selectedIndex: 0, theme: "ui-start", source: dataAdapter, displayMember: "lastName", valueMember: "code", height: '100%', width: '100%',
           renderer: function (index, label, value) {
             var datarecord = data[index];
-            //var imgurl = '../../images/' + label.toLowerCase() + '.png';
-            //var img = '<img height="50" width="40" src="' + imgurl + '"/>';
-            //var table = '<table style="min-width: 130px;"><tr><td style="width: 40px;" rowspan="2">' +
-            //  img + '</td><td>' + datarecord.firstName + " " + datarecord.lastName + '</td></tr><tr><td>' +
-            //  datarecord.department + '</td></tr></table>';
 
-            // Set proper department link and name
+            // Set department name
             if (datarecord.department.match(/(EDU.DIT\/PORTAL)/g) == "EDU.DIT/PORTAL") {
               departmentName = labels.dit;
             } else if (datarecord.department.match(/(EDU.DEM\/PORTAL)/g) == "EDU.DEM/PORTAL") {
@@ -283,9 +281,15 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
               departmentName = "";
             }
 
+            var img = '<img height="50" width="40" src="data:image/jpeg;base64, ' + datarecord.photo + '"/>';
 
-            var table = '<table style="min-width: 130px;"><tr><td>' + datarecord.firstName + " " + datarecord.lastName + '</td></tr><tr><td>' +
-                departmentName + '</td></tr></table>';
+            if (datarecord.photo !== "") {
+              var table = '<table style="min-width: 130px;"><tr><td style="width:40px;" rowspan="2">' + img + '</td><td>' + datarecord.firstName + " " +
+                  datarecord.lastName + '</td></tr><tr><td>' + departmentName + '</td></tr></table>';
+            } else {
+              var table = '<table style="min-width: 130px;"><tr><td>' + datarecord.firstName + " " +
+                  datarecord.lastName + '</td></tr><tr><td>' + departmentName + '</td></tr></table>';
+            }
             return table;
           }
         });
@@ -306,7 +310,6 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
     /**
      * Widget Error Message.
      * @method
-     * @memberof EBC_MCS_MeetingCentre
      * @instance
      * @param {json} param = { 'message':'string(simple html)','type':'error|info','time':'miliseconds','remove':'yes|no'}
      */
