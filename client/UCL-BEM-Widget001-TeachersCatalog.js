@@ -116,6 +116,7 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
 
       },
       error: function (jqXHR, textStatus, errorThrown) {
+        ("#teachersCatalog-spinner").hide();
         myself.errorMsg({
           'type': 'error',
           'message': 'UCL Teachers Catalog in not available!',
@@ -124,6 +125,38 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
         (myself.debug) && (console.log(JSON.stringify(jqXHR) + "\n" + textStatus + "\n" + errorThrown));
       }
     });
+
+  },
+
+  /**
+   * Build  Core Teachers Catalog GUI.
+   * @memberof UCL_BEM_TeachersCatalog
+   * @instance
+   * @returns {UCL_BEM_TeachersCatalog}
+   */
+
+  buildTeachersCatalogGUI: function (param) {
+    try {
+      var tc = this.cTC.data.body.config;
+
+      // build TC
+      $('<div></div>').attr('id','teachersCatalog').appendTo(this.id);
+
+      // build TC splitter with list and content panel
+      var catalogWidth = tc.width;
+      var catalogHeight = tc.height;
+      $('<div></div>').attr('id','catalogSplitter').appendTo('#teachersCatalog');
+      $('<div></div>').attr('style','overflow:hidden;').attr('id', 'catalogListPanel').appendTo('#catalogSplitter');
+      $('<div></div>').attr('style','border:none;').attr('id','catalogListBox').appendTo('#catalogListPanel');
+      $('<div></div>').attr('style','overflow:hidden;').attr('id', 'catalogContentPanel').appendTo('#catalogSplitter');
+      $("#catalogSplitter").jqxSplitter({ width: catalogWidth, height: catalogHeight, splitBarSize: 5, theme: 'ui-start', panels: [{ size: '40%'}] });
+
+
+    } catch (e) {
+      (this.debug) && (console.error(e));
+    } finally {
+      return this;
+    }
 
   },
 
@@ -142,6 +175,22 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
       }
     };
     var myself = this;
+
+    myself.buildTeachersCatalogGUI();
+
+    //Not ready
+    //$('<div id="teachersCatalog-spinner-panel"></div>')
+    //    .attr('class',"teachersCatalogSpinner")
+    //    .appendTo("#catalogSplitter");
+   // $('<div id="teachersCatalog-spinner"></div>')
+   //     .appendTo("#teachersCatalog-spinner-panel");
+
+    $('<div id="teachersCatalog-spinner"></div>')
+        .appendTo("#catalogSplitter");
+
+    var remove = uuSpinner("teachersCatalog-spinner",14,25,12,4,"#fff");
+
+
     $.ajax({
       type: 'POST',
       url: 'UCL-BEM-TeachersCatalog/getTeachersList',
@@ -157,6 +206,7 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
         myself.build();
       },
       error: function (jqXHR, textStatus, errorThrown) {
+        ("#teachersCatalog-spinner").hide();
         myself.errorMsg({
           'type': 'error',
           'message': 'Get teachers list is not available!',
@@ -189,19 +239,20 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
         var teachersList = this.cTC.teachers.data.body.teachersList;
 
         // build TC
-        $('<div></div>').attr('id','teachersCatalog').appendTo(this.id);
+        //$('<div></div>').attr('id','teachersCatalog').appendTo(this.id);
 
         // build TC splitter with list and content panel
         var catalogWidth = tc.width;
         var catalogHeight = tc.height;
-        $('<div></div>').attr('id','catalogSplitter').appendTo('#teachersCatalog');
-        $('<div></div>').attr('style','overflow:hidden;').attr('id', 'catalogListPanel').appendTo('#catalogSplitter');
-        $('<div></div>').attr('style','border:none;').attr('id','catalogListBox').appendTo('#catalogListPanel');
-        $('<div></div>').attr('style','overflow:hidden;').attr('id', 'catalogContentPanel').appendTo('#catalogSplitter');
-        $("#catalogSplitter").jqxSplitter({  width: catalogWidth, height: catalogHeight, panels: [{ size: '40%'}] });
+        //$('<div></div>').attr('id','catalogSplitter').appendTo('#teachersCatalog');
+        //$('<div></div>').attr('style','overflow:hidden;').attr('id', 'catalogListPanel').appendTo('#catalogSplitter');
+        //$('<div></div>').attr('style','border:none;').attr('id','catalogListBox').appendTo('#catalogListPanel');
+        //$('<div></div>').attr('style','overflow:hidden;').attr('id', 'catalogContentPanel').appendTo('#catalogSplitter');
+        //$("#catalogSplitter").jqxSplitter({ width: catalogWidth, height: catalogHeight, splitBarSize: 5, theme: 'ui-start', panels: [{ size: '40%'}] });
+
 
         // prepare data
-        var data = new Array()
+        var data = new Array();
 
         var k = 0;
         for (var i = 0; i < teachersList.length; i++) {
@@ -239,18 +290,18 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
 
           // Set department link and name
           if (datarecord.department.match(/(EDU.DIT\/PORTAL)/g) == "EDU.DIT/PORTAL") {
-            departmentLink = "<a target='_new' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dit + "</a>";
+            departmentLink = "<a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dit + "</a>";
           } else if (datarecord.department.match(/(EDU.DEM\/PORTAL)/g) == "EDU.DEM/PORTAL") {
-            departmentLink = "<a target='_new' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dem + "</a>";
+            departmentLink = "<a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dem + "</a>";
           } else if (datarecord.department.match(/(EDU.DLA\/PORTAL)/g) == "EDU.DLA/PORTAL") {
-            departmentLink = "<a target='_new' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dla + "</a>";
+            departmentLink = "<a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dla + "</a>";
           } else {
             departmentLink = "";
           }
 
           var department = "<div class='jqx-widget-ui-start' style='margin: 10px;'>" + departmentLink + "</div>";
-          var personalPortal = "<div class='jqx-widget-ui-start' style='margin: 10px;'><a target='_new' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.personalPortal + "'>" + labels.personalPortal + "</a></div>";
-          var businessCard = "<div class='jqx-widget-ui-start' style='margin: 10px;'><a target='_new' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.businessCard + "'>" + labels.businessCard + "</a></div>";
+          var personalPortal = "<div class='jqx-widget-ui-start' style='margin: 10px;'><a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.personalPortal + "'>" + labels.personalPortal + "</a></div>";
+          var businessCard = "<div class='jqx-widget-ui-start' style='margin: 10px;'><a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.businessCard + "'>" + labels.businessCard + "</a></div>";
           (datarecord.degreeBefore !== "") && container.append(degreeBefore);
           (datarecord.firstName !== "") && container.append(firstName);
           (datarecord.lastName !== "") && container.append(lastName);
@@ -294,11 +345,10 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
           }
         });
 
-       // $("#meetingRoomTabContent-spinner").hide();
-
         updatePanel(0);
 
-
+        // Hide spinner
+        $("#teachersCatalog-spinner").hide();
 
       } catch (e) {
           (this.debug) && (console.error(e));
@@ -316,7 +366,7 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
     errorMsg: function (param) {
         try {
             //default values & param validation
-            param = param || {};
+          param = param || {};
             param['remove'] = param['remove'] ||  'yes';
             param['time'] = param['time'] || 5*1000;
             isNaN(param['time']) && (param['time']=5*1000);
