@@ -178,13 +178,6 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
 
     myself.buildTeachersCatalogGUI();
 
-    //Not ready
-    //$('<div id="teachersCatalog-spinner-panel"></div>')
-    //    .attr('class',"teachersCatalogSpinner")
-    //    .appendTo("#catalogSplitter");
-   // $('<div id="teachersCatalog-spinner"></div>')
-   //     .appendTo("#teachersCatalog-spinner-panel");
-
     $('<div id="teachersCatalog-spinner"></div>')
         .appendTo("#catalogSplitter");
 
@@ -238,19 +231,6 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
 
         var teachersList = this.cTC.teachers.data.body.teachersList;
 
-        // build TC
-        //$('<div></div>').attr('id','teachersCatalog').appendTo(this.id);
-
-        // build TC splitter with list and content panel
-        var catalogWidth = tc.width;
-        var catalogHeight = tc.height;
-        //$('<div></div>').attr('id','catalogSplitter').appendTo('#teachersCatalog');
-        //$('<div></div>').attr('style','overflow:hidden;').attr('id', 'catalogListPanel').appendTo('#catalogSplitter');
-        //$('<div></div>').attr('style','border:none;').attr('id','catalogListBox').appendTo('#catalogListPanel');
-        //$('<div></div>').attr('style','overflow:hidden;').attr('id', 'catalogContentPanel').appendTo('#catalogSplitter');
-        //$("#catalogSplitter").jqxSplitter({ width: catalogWidth, height: catalogHeight, splitBarSize: 5, theme: 'ui-start', panels: [{ size: '40%'}] });
-
-
         // prepare data
         var data = new Array();
 
@@ -263,7 +243,9 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
           row["lastName"] = teachersList[k].lastName;
           row["degreeAfter"] = teachersList[k].degreeAfter;
           row["department"] = teachersList[k].department;
-          row["personalPortal"] = teachersList[k].personalPortal;
+          var personalCard = teachersList[k].personalPortal;
+          var personalPortal = personalCard.match(/(\w+)/);
+          row["personalPortal"] = personalPortal[1]+"/PORTAL";
           row["businessCard"] = teachersList[k].businessCard;
           row["photo"] = teachersList[k].photo;
           data[i] = row;
@@ -286,17 +268,29 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
           var firstName = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.firstName + ":</b> " + datarecord.firstName + "</div>";
           var lastName = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.lastName + ":</b> " + datarecord.lastName + "</div>";
           var degreeAfter = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.degreeAfter + ":</b> " + datarecord.degreeAfter + "</div>";
-          var departmentLink = "";
 
           // Set department link and name
-          if (datarecord.department.match(/(EDU.DIT\/PORTAL)/g) == "EDU.DIT/PORTAL") {
-            departmentLink = "<a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dit + "</a>";
-          } else if (datarecord.department.match(/(EDU.DEM\/PORTAL)/g) == "EDU.DEM/PORTAL") {
-            departmentLink = "<a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dem + "</a>";
-          } else if (datarecord.department.match(/(EDU.DLA\/PORTAL)/g) == "EDU.DLA/PORTAL") {
-            departmentLink = "<a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.department + "'>" + labels.dla + "</a>";
-          } else {
-            departmentLink = "";
+          var departmentLink = "";
+
+          if (datarecord.department !== "")
+          {
+            var departmentArtifactCodeURI = datarecord.department;
+            var departmentCode = departmentArtifactCodeURI.match(/\w+\:.{6}[\[]\d+[\]]\:(.+)[\[]\d+[\]]/);
+
+            departmentLink = "<a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=" + departmentArtifactCodeURI + "'>";
+
+            switch(departmentCode[1]) {
+              case "EDU.DIT/PORTAL":
+                departmentLink += labels.dit + "</a>";
+                break;
+              case "EDU.DEM/PORTAL":
+                departmentLink += labels.dem + "</a>";
+                break;
+              case "EDU.DLA/PORTAL":
+                departmentLink += labels.dla + "</a>";
+                break;
+              default:
+                departmentLink = "";
           }
 
           var department = "<div class='jqx-widget-ui-start' style='margin: 10px;'>" + departmentLink + "</div>";

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        window.onload = function () {
+            var dep = "ues:UCL-BT[118500965363973101]:EDU.DIT/PORTAL[44191571585570850]";
+            var depCode = dep.match(/\w+\:.{6}[\[]\d+[\]]\:(.+)[\[]\d+[\]]/);
+
+            var uri = "plus4u.net/";
+
+            uri += depCode[1]
+
+            alert(uri);
+
+            var personalCard = "ucl001/KARTA";
+            var personalPortal = personalCard.match(/(\w+)/);
+            alert(personalPortal[1]+"/PORTAL");
+        };
+    </script>
+</head>
+<body>
+
+</body>
+</html>
