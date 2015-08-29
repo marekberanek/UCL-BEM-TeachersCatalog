@@ -79,8 +79,9 @@ class UCL_BEM_TeachersCatalog_Server < Sinatra::Base
 
 
   #default uuWidget Starting Rout
-  #for testing, call: localhost:81/getContent?options={"mode":"debug", "lang":"en"}&data={"tc":"ues:UCL-BT:UCL/VYUCUJICI"}
-  #localhost:9292/getContent?options=%7B%22mode%22%3A%22debug%22%2C%20%22lang%22%3A%22en%22%7D&data=%7B%22tc%22%3A%22ues%3AUCL-BT%3AUCL%2FVYUCUJICI%22%7D
+  #for testing, call: localhost:81/getContent?options={"mode":"debug", "lang":"en"}&data={"tc":"ues:UCL-BT:UCL/VYUCUJICI"}&width=900&height=500
+  #localhost:9292/getContent?options=%7B%22mode%22%3A%22debug%22%2C%20%22lang%22%3A%22en%22%7D&data=%7B%22tc%22%3A%22ues%3AUCL-BT%3AUCL%2FVYUCUJICI%22%7D&width=900&height=400
+  #[ues.widget data='{"tc":"ues:UCL-BT:UCL/VYUCUJICI"}' options='{"mode":"debug", "lang":"en"}' uri='ues-uwt:ucl.bem.tc.widget001' width='900' height='800'][/ues.widget]
   get '/getContent' do
     options = (!params[:options].nil?) ? JSON.parse(params[:options], symbolize_names: true) : {}
     widgetFile = "UCL-BEM-Widget001-TeachersCatalog.htm"
@@ -107,7 +108,6 @@ class UCL_BEM_TeachersCatalog_Server < Sinatra::Base
 
       (UU::OS::Security::Session.login(request.env["HTTP_TOKEN"])) || (raise "UCL_BEM_TeachersCatalog_UserLoginFail")
       @uuID = UU::OS::Security::Session.get_personal_role.artifact_code
-      UU::OS::Security::Session.logout() #+4U logout
 
       #obtain and check input parameters uuDTO_in (json)
       @inp = request.body.read
@@ -125,9 +125,6 @@ class UCL_BEM_TeachersCatalog_Server < Sinatra::Base
       #test - Teachers Catalog missing
       (!@uuDTO_in['data']['body'].key?('tc')) && (raise "UCL_BEM_TeachersCatalog_before_TeachersCatalogMissing")
 
-      #create instance of Teachers Catalog
-      (UU::OS::Security::Session.login('/Users/marekberanek/Documents/uuProjects/UCL-BEM-TeachersCatalog/server/access')) || (raise "UCL_BEM_TeachersCatalog_before_uuEELoginFail") #Comment for server
-
       @myTC = UCL_BEM_TeachersCatalog.new @uuDTO_in["data"]["body"]["tc"], @uuID
     end
   end
@@ -137,7 +134,6 @@ class UCL_BEM_TeachersCatalog_Server < Sinatra::Base
     #get Config, Clients, UserProfile
     @uuDTO_out["data"]["body"]={}
     @uuDTO_out["data"]["body"]["config"] = JSON.parse @myTC.getConfig
-    #@uuDTO_out["data"]["body"]["config"] = @myTC.getConfig
 
     UU::OS::Security::Session.logout() #+4U logout
     @uuDTO_out.to_json

@@ -31,8 +31,10 @@ end
 
 def retrieveTeachersList (stateType, mar, location)
   query = "stateType = " + stateType + " and metaArtifactCode = '" + mar +"' order by name"
-  #query = "stateType = " + stateType + " and metaArtifactCode = '" + mar +"' and code='ucl002/KARTA' order by name"
-    listOfTeachers = UU::OS::ArtifactSearch.query(location, :query => query)
+  #query = "stateType = " + stateType + " and metaArtifactCode = '" + mar +"' and code='ucl061/KARTA' order by name"
+
+  listOfTeachers = UU::OS::ArtifactSearch.query(location, :query => query)
+
   return listOfTeachers
 end
 
@@ -56,10 +58,49 @@ end
 def getPhoto(pc)
   pcAttributes = UU::OS::Property.get_value("#{pc}:UU.BEM/PIC/ATTRIBUTES").data.read
   plus4uPeopleCard = JSON.parse(pcAttributes)["UU_BEM_PIC_PLUS4U_PEOPLE_CARD"]
-  apPhotoBT = "#{plus4uPeopleCard}UU.PLUS4UPPL/PHOTO_BT"
+  if plus4uPeopleCard[-1] == ":"
+    apPhotoBT = "#{plus4uPeopleCard}UU.PLUS4UPPL/PHOTO_BT"
+  else
+    apPhotoBT = "#{plus4uPeopleCard}:UU.PLUS4UPPL/PHOTO_BT"
+  end
   bvPhoto = UU::OS::Property.get_value(apPhotoBT).data.read
 
   return bvPhoto
+rescue UU::OS::QoS::QoSLimitException
+  if count < 5
+    #wait for some time
+    sleep(QOSWAIT)
+    count += 1
+    #retry previous command
+    retry
+  else
+    puts e.code
+    exit
+  end
+end
+
+def getSendMessage(pc)
+  pcAttributes = UU::OS::Property.get_value("#{pc}:UU.BEM/PIC/ATTRIBUTES").data.read
+  plus4uPeopleCard = JSON.parse(pcAttributes)["UU_BEM_PIC_PLUS4U_PEOPLE_CARD"]
+  ucUri = UU::OS::UESURIBuilder.parse_uesuri(plus4uPeopleCard).set_use_case_code('CONTACT_USER_CS').to_uesuri
+
+  return ucUri
+rescue UU::OS::QoS::QoSLimitException
+  if count < 5
+    #wait for some time
+    sleep(QOSWAIT)
+    count += 1
+    #retry previous command
+    retry
+  else
+    puts e.code
+    exit
+  end
+end
+
+def getPlus4UPeopleCardAttributes(pc)
+  pcAttributes = UU::OS::Property.get_value("#{pc}:UU.BEM/PIC/ATTRIBUTES").data.read
+  return pcAttributes
 rescue UU::OS::QoS::QoSLimitException
   if count < 5
     #wait for some time
@@ -132,14 +173,11 @@ for item in result
   }
 
   teacher["CODE"] = item.code # artifact code
-
   teacher["PHOTO"] = ""
-
-  if (teacher["EMP_PC"] != nil && teacher["EMP_PC"] != "")
-    #bv = getPhoto(teacher["EMP_PC"])
-    #teacher["PHOTO"] = Base64.encode64(bv)
-  end
-
+  teacher["SEND_MESSAGE"] = ""
+  teacher["ADDRESS"] = ""
+  teacher["PHONE"] = ""
+  teacher["EMAIL"] = ""
 
   teachers << teacher
 
@@ -162,6 +200,27 @@ for item in teachers
   if (item["EMP_PC"] != nil && item["EMP_PC"] != "")
     bv = getPhoto(item["EMP_PC"])
     item["PHOTO"] = Base64.encode64(bv)
+    item["SEND_MESSAGE"] = getSendMessage(item["EMP_PC"])
+
+    # Process JSON with Plus4U People Card Attributes
+    pcAttributes = getPlus4UPeopleCardAttributes(item["EMP_PC"])
+    phoneDefault = JSON.parse(pcAttributes)["UU_BEM_PIC_PHONE_DEFAULT"]
+    emailDefault = JSON.parse(pcAttributes)["UU_BEM_PIC_EMAIL_DEFAULT"]
+    addressDefault = JSON.parse(pcAttributes)["UU_BEM_PIC_ADDRESS_DEFAULT"]
+
+    addressList = JSON.parse(pcAttributes)["UU_BEM_PIC_ADDRESS_LIST"]
+    phoneList = JSON.parse(pcAttributes)["UU_BEM_PIC_PHONE_LIST"]
+    emailList = JSON.parse(pcAttributes)["UU_BEM_PIC_EMAIL_LIST"]
+
+    if (addressDefault != nil)
+      item["ADDRESS"] = addressList[addressDefault]["UU_BEM_PIC_ADDRESS_LINE"]
+    end
+    if (phoneDefault != nil)
+      item["PHONE"] = phoneList[phoneDefault]["UU_BEM_PIC_PHONE"]
+    end
+    if (emailDefault != nil)
+      item["EMAIL"] = emailList[emailDefault]["UU_BEM_PIC_EMAIL"]
+    end
   end
 
   durationFinish = Time.now

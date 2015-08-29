@@ -11,7 +11,7 @@
 .jqx-grid-column-sortascbutton-ui-start{background-position:-96px -192px; background-image:url(images/start/ui-icons_d8e7f3_256x240.png);position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px;}
 .jqx-grid-column-sortdescbutton-ui-start{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-64px -192px; background-image:url(images/start/ui-icons_d8e7f3_256x240.png)}
 .jqx-grid-column-menubutton-ui-start{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-65px -16px; background-image:url(images/start/ui-icons_d8e7f3_256x240.png); border-width:0px}
-.jqx-grid-cell-sort-ui-start, .jqx-grid-cell-filter-ui-start, .jqx-grid-cell-pinned-ui-start{background: #ecf2f2; color: #1482b4;}
+.jqx-grid-cell-sort-ui-start, .jqx-grid-cell-filter-ui-start, .jqx-grid-cell-pinned-ui-start{background: #ecf2f2; color: #1482b4;} 
 .jqx-grid-cell-sort-alt-ui-start, .jqx-grid-cell-filter-alt-ui-start, .jqx-grid-cell-alt-ui-start{background: #ecf2f2;}
 /*Tree*/
 .jqx-tree-item-arrow-expand-ui-start, .jqx-tree-item-arrow-expand-hover-ui-start{background-position:-65px -16px; background-image:url(images/start/ui-icons_222222_256x240.png)}
@@ -89,13 +89,13 @@
 }
 .jqx-tabs-selection-tracker-top-ui-start
 {
-    background: #7cb441;
-    border-bottom: 0px solid transparent;
+   background: #7cb441;
+   border-bottom: 0px solid transparent;
 }
 .jqx-tabs-selection-tracker-bottom-ui-start
 {
-    background: #7cb441;
-    border-top: 0px solid transparent;
+   background: #7cb441;
+   border-top: 0px solid transparent;
 }
 .jqx-tabs-title-selected-top-ui-start
 {
@@ -112,7 +112,7 @@
 .jqx-slider-rangebar
 {
     background: #7bbdd9;
-}
+} 
 
 /*Grid*/
 .jqx-grid-bottomright-ui-start, .jqx-panel-bottomright-ui-start, .jqx-listbox-bottomright-ui-start, .jqx-scrollbar-state-normal-ui-start{background: #7bbdd9;}
@@ -199,17 +199,4 @@
 }
 .jqx-editor-toolbar-icon-ui-start {
     background: url('images/html_editor_white.png') no-repeat;
-}
-.jqx-layout-ui-start
-{
-    background-color: #4297d7;
-    background-image: none;
-}
-.jqx-layout-pseudo-window-pin-icon-ui-start
-{
-    background-image: url("images/pin-lightblue.png");
-}
-.jqx-layout-pseudo-window-pinned-icon-ui-start
-{
-    background-image: url("images/pinned-lightblue.png");
 }

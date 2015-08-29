@@ -1,18 +1,13 @@
 /**
- * Demo: http://www.jqwidgets.com/jquery-widgets-demo/demos/jqxlistbox/index.htm?(arctic)#demos/jqxlistbox/rendering.htm
- */
-
-/**
  * @class Represents widget UCL Teachers Catalog Widget001.
  *
  */
 function uuWidget() {
 //UU Widget standard template
-//env = {"loginStatus":"","loginToken":"","urlVariables":{"data":{},"Options":{},...}} 
     var myWidget = new UUWidget({
         loginToken: "/Users/marekberanek/Documents/uuProjects/UCL-BEM-TeachersCatalog/server/access",                   //Comment for Server!!!
         success: function (env) {
-            var myRating = new UCL_BEM_TeachersCatalog_Widget001(env);
+            var myTC = new UCL_BEM_TeachersCatalog_Widget001(env);
         },
         error: function (env) {
             $('<div></div>').html('Widget not ready for use!').appendTo('body');
@@ -57,6 +52,8 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
       env.urlVariables.options = env.urlVariables.options || {"mode": "debug", "lang": "cz"};
       env.urlVariables.options.lang = env.urlVariables.options.lang || 'cz';
       env.urlVariables.options.mode = env.urlVariables.options.mode || 'standard';  //'debug'
+      env.urlVariables.width = env.urlVariables.width || '900';  //'debug'
+      env.urlVariables.height = env.urlVariables.height || '500';  //'debug'
       env.urlVariables.referreruri = env.urlVariables.referreruri || '';
 
 
@@ -66,6 +63,8 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
       this.loginToken = env.loginToken;          //User Login Token
       this.debug = (env.urlVariables.options.mode === 'debug') ? true : false;
       this.lang = env.urlVariables.options.lang;
+      this.width = env.urlVariables.width;
+      this.height = env.urlVariables.height;
       (this.debug) && (console.log(JSON.stringify(env)));
 
       this.cTC = {};       //Teachers Catalog Configuration Structure
@@ -76,7 +75,7 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
         .appendTo('body');
 
       this
-        .errorMsg({'type': 'info', 'message': 'Teachers Catalog is loading..', 'time': 5 * 1000})
+        .errorMsg({'type': 'info', 'message': 'Teachers Catalog is loading..', 'time': 3 * 1000})
         .serverLoadConfig();
 
     } catch (e) {
@@ -143,13 +142,13 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
       $('<div></div>').attr('id','teachersCatalog').appendTo(this.id);
 
       // build TC splitter with list and content panel
-      var catalogWidth = tc.width;
-      var catalogHeight = tc.height;
+      var catalogWidth = this.width-30;
+      var catalogHeight = this.height-30;
       $('<div></div>').attr('id','catalogSplitter').appendTo('#teachersCatalog');
       $('<div></div>').attr('style','overflow:hidden;').attr('id', 'catalogListPanel').appendTo('#catalogSplitter');
       $('<div></div>').attr('style','border:none;').attr('id','catalogListBox').appendTo('#catalogListPanel');
       $('<div></div>').attr('style','overflow:hidden;').attr('id', 'catalogContentPanel').appendTo('#catalogSplitter');
-      $("#catalogSplitter").jqxSplitter({ width: catalogWidth, height: catalogHeight, splitBarSize: 5, theme: 'ui-start', panels: [{ size: '40%'}] });
+      $("#catalogSplitter").jqxSplitter({ width: catalogWidth, height: catalogHeight, splitBarSize: 5, theme: 'uuTheme', panels: [{ size: '40%'}] });
 
 
     } catch (e) {
@@ -220,7 +219,6 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
 
     build: function (param) {
       try {
-
         var tc = this.cTC.data.body.config;
         var labels = {};
         if (this.lang === "cz") {
@@ -234,23 +232,32 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
         // prepare data
         var data = new Array();
 
-        var k = 0;
+        var j = 0;
         for (var i = 0; i < teachersList.length; i++) {
           var row = {};
-          row["code"] = teachersList[k].code;
-          row["degreeBefore"] = teachersList[k].degreeBefore;
-          row["firstName"] = teachersList[k].firstName;
-          row["lastName"] = teachersList[k].lastName;
-          row["degreeAfter"] = teachersList[k].degreeAfter;
-          row["department"] = teachersList[k].department;
-          var personalCard = teachersList[k].personalPortal;
-          var personalPortal = personalCard.match(/(\w+)/);
-          row["personalPortal"] = personalPortal[1]+"/PORTAL";
-          row["businessCard"] = teachersList[k].businessCard;
-          row["photo"] = teachersList[k].photo;
-          data[i] = row;
-          k++;
+          if (teachersList[i].department !== "")
+          {
+            row["code"] = teachersList[i].code;
+            row["degreeBefore"] = teachersList[i].degreeBefore;
+            row["firstName"] = teachersList[i].firstName;
+            row["lastName"] = teachersList[i].lastName;
+            row["degreeAfter"] = teachersList[i].degreeAfter;
+            row["department"] = teachersList[i].department;
+            var personalCard = teachersList[i].personalPortal;
+            var personalPortal = personalCard.match(/(\w+)/);
+            row["personalPortal"] = personalPortal[1]+"/PORTAL";
+            row["businessCard"] = teachersList[i].businessCard;
+            row["photo"] = teachersList[i].photo;
+            row["sendMessage"] = teachersList[i].sendMessage;
+            row["address"] = teachersList[i].address;
+            row["email"] = teachersList[i].email;
+            row["phone"] = teachersList[i].phone;
+            data[j] = row;
+            j++;
+          }
         }
+
+
         var source =
         {
           localdata: data,
@@ -259,27 +266,55 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
 
         var dataAdapter = new $.jqx.dataAdapter(source);
 
+
+
+
         // Panel with detailed information about teacher
         // First name, last name, degree before and after, title, department, phone, e-mail, link to personal portal, link to personal card
         var updatePanel = function (index) {
-          var container = $('<div style="margin: 5px;"></div>')
+          var container = $('<div style="margin: 5px;"></div>');
           var datarecord = data[index];
-          var degreeBefore = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.degreeBefore + ":</b> " + datarecord.degreeBefore + "</div>";
-          var firstName = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.firstName + ":</b> " + datarecord.firstName + "</div>";
-          var lastName = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.lastName + ":</b> " + datarecord.lastName + "</div>";
-          var degreeAfter = "<div class='jqx-widget-ui-start' style='margin: 10px;'><b>" + labels.degreeAfter + ":</b> " + datarecord.degreeAfter + "</div>";
+          var degreeBefore = "<div class='jqx-widget-uuTheme' style='margin: 10px;'><b>" + labels.degreeBefore + ":</b> " + datarecord.degreeBefore + "</div>";
+          var firstName = "<div class='jqx-widget-uuTheme' style='margin: 10px;'><b>" + labels.firstName + ":</b> " + datarecord.firstName + "</div>";
+          var lastName = "<div class='jqx-widget-uuTheme' style='margin: 10px;'><b>" + labels.lastName + ":</b> " + datarecord.lastName + "</div>";
+          var degreeAfter = "<div class='jqx-widget-uuTheme' style='margin: 10px;'><b>" + labels.degreeAfter + ":</b> " + datarecord.degreeAfter + "</div>";
+          var address = "<div class='jqx-widget-uuTheme' style='margin: 10px;'><b>" + labels.address + ":</b> " + datarecord.address + "</div>";
+          var phone = "<div class='jqx-widget-uuTheme' style='margin: 10px;'><b>" + labels.phone + ":</b> " + datarecord.phone + "</div>";
+          var email = "<div class='jqx-widget-uuTheme' style='margin: 10px;'><b>" + labels.email + ":</b> <a href='mailto:" + datarecord.email + "'>" + datarecord.email + "</a></div>";
+
+          var button = function (opt) {
+            var el = $('<a class="button bg-holder" href="' + opt.url + '" target="_new"><span class="icon"><span class="glyphs"></span></span><span class="text"></span></a>');
+            if (opt.type) el.addClass("button-" + opt.type);
+            if (opt.text) el.find(".text").text(opt.text);
+            else el.find(".text").remove();
+            if (opt.glyph) el.find(".glyphs").text(opt.glyph);
+            else el.find(".icon").remove();
+            el.addClass("color-" + opt.color + "-bg");
+            return el;
+          }
+
+          var sendMessageLink = "";
+
+          if (datarecord.sendMessage !== "") {
+            // Activity Icon
+            var glyph = String.fromCharCode(0xe000 + 39);
+
+            //sendMessageLink = "<a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=" + datarecord.sendMessage + "'>" + labels.sendMessage + "</a>";
+            sendMessageLink = $("<div align='center' class='jqx-widget-uuTheme' style='margin: 10px;'></div>");
+            sendMessageLink.append(button({ type: "", text: labels.sendMessage, glyph: glyph, color: "steel", url: "https://plus4u.net/ues/sesm?SessFree=" + datarecord.sendMessage }));
+          }
+
 
           // Set department link and name
           var departmentLink = "";
 
-          if (datarecord.department !== "")
-          {
+          if (datarecord.department !== "") {
             var departmentArtifactCodeURI = datarecord.department;
             var departmentCode = departmentArtifactCodeURI.match(/\w+\:.{6}[\[]\d+[\]]\:(.+)[\[]\d+[\]]/);
 
             departmentLink = "<a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=" + departmentArtifactCodeURI + "'>";
 
-            switch(departmentCode[1]) {
+            switch (departmentCode[1]) {
               case "EDU.DIT/PORTAL":
                 departmentLink += labels.dit + "</a>";
                 break;
@@ -291,49 +326,70 @@ var UCL_BEM_TeachersCatalog_Widget001 = UUClass({
                 break;
               default:
                 departmentLink = "";
+            }
           }
 
-          var department = "<div class='jqx-widget-ui-start' style='margin: 10px;'>" + departmentLink + "</div>";
-          var personalPortal = "<div class='jqx-widget-ui-start' style='margin: 10px;'><a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.personalPortal + "'>" + labels.personalPortal + "</a></div>";
-          var businessCard = "<div class='jqx-widget-ui-start' style='margin: 10px;'><a target='_new' style='color:blue;' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.businessCard + "'>" + labels.businessCard + "</a></div>";
+
+          var department = "<div class='jqx-widget-uuTheme' style='margin: 10px;'>" + departmentLink + "</div>";
+          var sendMessage = "<div class='jqx-widget-uuTheme' style='margin: 10px;'>" + sendMessageLink + "</div>";
+          var personalPortal = "<div class='jqx-widget-uuTheme' style='margin: 10px;'><a target='_new' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.personalPortal + "'>" + labels.personalPortal + "</a></div>";
+          var businessCard = "<div class='jqx-widget-uuTheme' style='margin: 10px;'><a target='_new' href='https://plus4u.net/ues/sesm?SessFree=ues:UCL-BT:" + datarecord.businessCard + "'>" + labels.businessCard + "</a></div>";
+
           (datarecord.degreeBefore !== "") && container.append(degreeBefore);
           (datarecord.firstName !== "") && container.append(firstName);
           (datarecord.lastName !== "") && container.append(lastName);
           (datarecord.degreeAfter !== "") && container.append(degreeAfter);
-          (datarecord.department !== "") && container.append(department);
-          (datarecord.personalPortal !== "") && container.append(personalPortal);
+          (datarecord.address !== "") && container.append(address);
+          (datarecord.phone !== "") && container.append(phone);
+          (datarecord.email !== "") && container.append(email);
+          // (datarecord.department !== "") && container.append(department);
+          // (datarecord.personalPortal !== "") && container.append(personalPortal);
           (datarecord.businessCard !== "") && container.append(businessCard);
+          (datarecord.sendMessage !== "") && container.append(sendMessageLink);
+
           $("#catalogContentPanel").html(container.html());
-        }
+
+          }
+
         $('#catalogListBox').on('select', function (event) {
           index = search(event.args.item.value, data)
           updatePanel(index);
         });
 
         // Create jqxListBox
-        $('#catalogListBox').jqxListBox({ filterable: true, filterPlaceHolder: labels.filterPlaceHolder, selectedIndex: 0, theme: "ui-start", source: dataAdapter, displayMember: "lastName", valueMember: "code", height: '100%', width: '100%',
+        $('#catalogListBox').jqxListBox({ filterable: true, filterPlaceHolder: labels.filterPlaceHolder, selectedIndex: 0, theme: "uuTheme", source: dataAdapter, displayMember: "lastName", valueMember: "code", height: '100%', width: '100%',
           renderer: function (index, label, value) {
             var datarecord = data[index];
 
-            // Set department name
-            if (datarecord.department.match(/(EDU.DIT\/PORTAL)/g) == "EDU.DIT/PORTAL") {
-              departmentName = labels.dit;
-            } else if (datarecord.department.match(/(EDU.DEM\/PORTAL)/g) == "EDU.DEM/PORTAL") {
-              departmentName = labels.dem;
-            } else if (datarecord.department.match(/(EDU.DLA\/PORTAL)/g) == "EDU.DLA/PORTAL") {
-              departmentName = labels.dla;
-            } else {
-              departmentName = "";
+            departmentName = "";
+
+            if (datarecord.department !== "") {
+              var departmentArtifactCodeURI = datarecord.department;
+              var departmentCode = departmentArtifactCodeURI.match(/\w+\:.{6}[\[]\d+[\]]\:(.+)[\[]\d+[\]]/);
+
+              switch (departmentCode[1]) {
+                case "EDU.DIT/PORTAL":
+                  departmentName = labels.dit;
+                  break;
+                case "EDU.DEM/PORTAL":
+                  departmentName = labels.dem;
+                  break;
+                case "EDU.DLA/PORTAL":
+                  departmentName = labels.dla;
+                  break;
+                default:
+                  departmentName = "";
+              }
             }
 
             var img = '<img height="50" width="40" src="data:image/jpeg;base64, ' + datarecord.photo + '"/>';
 
+            var table = "";
+
             if (datarecord.photo !== "") {
-              var table = '<table style="min-width: 130px;"><tr><td style="width:40px;" rowspan="2">' + img + '</td><td>' + datarecord.firstName + " " +
-                  datarecord.lastName + '</td></tr><tr><td>' + departmentName + '</td></tr></table>';
+              table = '<table style="min-width: 130px;"><tr><td style="width:40px;" rowspan="2">' + img + '</td><td>' + datarecord.firstName + " " + datarecord.lastName + '</td></tr><tr><td>' + departmentName + '</td></tr></table>';
             } else {
-              var table = '<table style="min-width: 130px;"><tr><td>' + datarecord.firstName + " " +
-                  datarecord.lastName + '</td></tr><tr><td>' + departmentName + '</td></tr></table>';
+              table = '<table style="min-width: 130px;"><tr><td>' + datarecord.firstName + " " + datarecord.lastName + '</td></tr><tr><td>' + departmentName + '</td></tr></table>';
             }
             return table;
           }

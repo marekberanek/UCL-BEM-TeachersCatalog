@@ -56,8 +56,6 @@ class UCL_BEM_TeachersCatalog
 
     listOfTeachers = JSON.parse(UU::OS::Property.get_value(@tcDataUri).data.read)
 
-    puts listOfTeachers.count
-
     teachers = []
 
     i = 0
@@ -74,6 +72,11 @@ class UCL_BEM_TeachersCatalog
       teacher["businessCard"] = convertNull2Empty(item["SYS.PPL/UID"])
       teacher["personCard"] = convertNull2Empty(item["EMP_PC"])
       teacher["photo"] = convertNull2Empty(item["PHOTO"])
+      teacher["sendMessage"] = convertNull2Empty(item["SEND_MESSAGE"])
+      teacher["address"] = convertNull2Empty(item["ADDRESS"])
+      teacher["phone"] = convertNull2Empty(item["PHONE"])
+      teacher["email"] = convertNull2Empty(item["EMAIL"])
+
       teachers << teacher
     end
 

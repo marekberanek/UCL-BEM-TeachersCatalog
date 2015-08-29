@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
-source 'http://gems.unicornuniverse.eu/'
+source 'http://gems.plus4u.net/'
 
-gem 'sinatra'
-gem 'uu_os_client'
-gem 'uu_applog'
-gem 'json'
+gem 'sinatra', '1.4.6'
+gem 'uu_os_client', '0.14.4'
+gem 'uu_applog', '0.12.4'
+gem 'json', '1.8.3'
